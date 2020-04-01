@@ -1,0 +1,6 @@
+{
+    "commandDescription": "request that a dataset begin a trainging run",
+    "nameFlagDescription": "name to print",
+    "forceFlagDescription": "example boolean flag",
+    "errorNoOrgResults": "No results found for the org '%s'."
+}

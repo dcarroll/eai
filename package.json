@@ -11,10 +11,13 @@
         "@salesforce/command": "^2",
         "@salesforce/core": "^2",
         "base64url": "^3.0.1",
+        "fetch": "^1.1.0",
+        "form-data": "^3.0.0",
         "jsonwebtoken": "^8.5.1",
         "node-fetch": "^2.6.0",
         "sf-einstein": "^0.0.10",
-        "tslib": "^1"
+        "tslib": "^1",
+        "yarn": "^1.22.4"
     },
     "devDependencies": {
         "@oclif/dev-cli": "^1",
@@ -49,11 +52,14 @@
         "commands": "./lib/commands",
         "bin": "sfdx",
         "topics": {
-            "hello": {
-                "description": "Commands for E.ai Platform API"
-            },
             "eai": {
-                "description": "Fetch new oauth token"
+                "description": "E.ai API Client"
+            },
+            "eai:vision": {
+                "description": "Commands to manage vision services"
+            },
+            "eai:vision:datasets": {
+                "description": "Commands to manage vision datasets, topic lists all your datasets"
             }
         },
         "devPlugins": [

@@ -2,15 +2,16 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { ConfigFile, Messages, SfdxError } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { readFileSync } from 'fs';
+import EAIToken from '../../utils/token';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai', 'auth');
+const messages = Messages.loadMessages('eai:vision:auth', 'login');
 
-export default class Org extends SfdxCommand {
+export default class Login extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
@@ -42,12 +43,7 @@ export default class Org extends SfdxCommand {
 
   public async run(): Promise<AnyJson> {
     const name = this.flags.name;
-    const outputString = 'test output';
-    // The type we are querying for
-    // interface Organization {
-    //   Name: string;
-    //   TrialExpirationDate: string;
-    // }
+
     if (!this.flags.name) {
       throw new SfdxError(messages.getMessage('errorNoOrgResults'));
     }
@@ -57,28 +53,23 @@ export default class Org extends SfdxCommand {
     }
 
     this.setConfig();
+    const PRIV_KEY = readFileSync(this.flags.pemlocation, 'utf8');
 
-    this.sfEinstein.getToken().then(async token => {
-      console.log(token);
-      const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
-      econfig.set('username', this.flags.name);
-      econfig.set('token', token);
-      econfig.write();
-    });
-    this.ux.log(outputString);
+    const eaitoken = new EAIToken();
+    const authtoken = await eaitoken.getAccessToken(name, this.flags.expiration, PRIV_KEY);
+
+    const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
+    econfig.set('username', this.flags.name);
+    econfig.set('token', authtoken.access_token);
+    econfig.set('expiry', authtoken.expires_in);
+    econfig.write();
+    this.ux.log('Successfully obtained auth token');
 
     // Return an object to be displayed with --json
-    return { username: name, message: outputString };
+    return { username: name, message: 'Successfully obtained auth token' };
   }
 
   private setConfig() {
-    const PRIV_KEY = readFileSync(this.flags.pemlocation, 'utf8');
-    console.log(PRIV_KEY);
-    this.sfEinstein.setup({
-        baseUrl :  'https://api.einstein.ai',
-        accountId :  this.flags.name,
-        privateKey :  PRIV_KEY
-    });
   }
 
 }
