@@ -36,14 +36,14 @@ export default class EAIToken {
             { algorithm: 'RS256'}
         );
         return fetch('https://api.einstein.ai/v2/oauth2/token', {
-            body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&scope:offline&assertion=${token}`,
+            body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${token}&scope:offline`,
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'POST'
         }).then((response: { ok: boolean; statusText: string; json: () => object; }) => {
             if (!response.ok) {
-            throw new Error(response.statusText);
+                throw new Error(response.statusText);
             }
 
             // const { access_token } = response.json();
@@ -57,5 +57,4 @@ export default class EAIToken {
             console.error(err);
         });
     }
-
 }

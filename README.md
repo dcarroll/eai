@@ -32,6 +32,10 @@ USAGE
 <!-- commands -->
 * [`sfdx apiusage [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-apiusage---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:auth:login [-n <string>] [-f <string>] [-e <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaiauthlogin--n-string--f-string--e-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:language:datasets [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eailanguagedatasets--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:language:datasets:create -t <string> [-d <string>] [-l <string>] [-n <string>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eailanguagedatasetscreate--t-string--d-string--l-string--n-string--p-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:language:datasets:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eailanguagedatasetsdelete--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:language:datasets:delete:status -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eailanguagedatasetsdeletestatus--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasets--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets:create -b <string> -n <string> -t <string> [-l <string>] [-p <string>] [-d <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetscreate--b-string--n-string--t-string--l-string--p-string--d-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetsdelete--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
@@ -39,6 +43,12 @@ USAGE
 * [`sfdx eai:vision:datasets:retrain -i <string> [-e <integer>] [-r <number>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetsretrain--i-string--e-integer--r-number--p-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets:train -i <string> -n <string> [-e <integer>] [-r <number>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetstrain--i-string--n-string--e-integer--r-number--p-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets:train:status -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetstrainstatus--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:vision:detect -i <string> [-n <integer>] [-s <string>] [-c <string> | -l <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondetect--i-string--n-integer--s-string--c-string---l-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:vision:models -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisionmodels--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:vision:models:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisionmodelsdelete--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:vision:models:learningcurve -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisionmodelslearningcurve--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:vision:models:metrics [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisionmodelsmetrics--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:vision:predict -i <string> [-n <integer>] [-b <string> | -c <string> | -l <string>] [-s <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisionpredict--i-string--n-integer--b-string---c-string---l-string--s-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx apiusage [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -89,6 +99,125 @@ EXAMPLE
 ```
 
 _See code: [lib/commands/eai/auth/login.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/auth/login.js)_
+
+## `sfdx eai:language:datasets [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+get a list of all your datasets, or provide an Id to get the details of a specific dataset
+
+```
+USAGE
+  $ sfdx eai:language:datasets [-i <string>] [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -i, --datasetid=datasetid                                                         dataset id to retrieve, if not
+                                                                                    specified all datasets are retrieved
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/language/datasets.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/language/datasets.js)_
+
+## `sfdx eai:language:datasets:create -t <string> [-d <string>] [-l <string>] [-n <string>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+create a new dataset
+
+```
+USAGE
+  $ sfdx eai:language:datasets:create -t <string> [-d <string>] [-l <string>] [-n <string>] [-p <string>] [--json] 
+  [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -d, --data=data                                                                   URL of the .zip file. The maximum
+                                                                                    .zip file size you can upload from a
+                                                                                    web location is 50 MB.
+
+  -l, --language=language                                                           [default: N/A] Dataset language.
+                                                                                    Optional. Default is N/A. Reserved
+                                                                                    for future use.
+
+  -n, --name=name                                                                   Name of the dataset. Maximum length
+                                                                                    is 180 characters.
+
+  -p, --path=path                                                                   URL of the .zip file. The maximum
+                                                                                    .zip file size you can upload from a
+                                                                                    web location is 50 MB.
+
+  -t, --type=type                                                                   (required) Type of dataset data.
+                                                                                    Valid values are image and
+                                                                                    image-multi-label. Available in
+                                                                                    Einstein Vision API version 2.0 and
+                                                                                    later.
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:create --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/language/datasets/create.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/language/datasets/create.js)_
+
+## `sfdx eai:language:datasets:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+request that a dataset be deleted
+
+```
+USAGE
+  $ sfdx eai:language:datasets:delete -i <string> [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -i, --datasetid=datasetid                                                         (required) dataset id to retrieve,
+                                                                                    if not specified all datasets are
+                                                                                    retrieved
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/language/datasets/delete.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/language/datasets/delete.js)_
+
+## `sfdx eai:language:datasets:delete:status -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+get the status of a dataset delete request
+
+```
+USAGE
+  $ sfdx eai:language:datasets:delete:status -i <string> [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -i, --deletrequestid=deletrequestid                                               (required) dataset id to retrieve
+                                                                                    deletion status for
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/language/datasets/delete/status.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/language/datasets/delete/status.js)_
 
 ## `sfdx eai:vision:datasets [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -316,6 +445,184 @@ EXAMPLE
 ```
 
 _See code: [lib/commands/eai/vision/datasets/train/status.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/vision/datasets/train/status.js)_
+
+## `sfdx eai:vision:detect -i <string> [-n <integer>] [-s <string>] [-c <string> | -l <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+get a list of all your datasets, or provide an Id to get the details of a specific dataset
+
+```
+USAGE
+  $ sfdx eai:vision:detect -i <string> [-n <integer>] [-s <string>] [-c <string> | -l <string>] [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -c, --samplecontent=samplecontent                                                 Binary content of image file
+
+  -i, --modelid=modelid                                                             (required) model id to make
+                                                                                    prediction against
+
+  -l, --samplelocation=samplelocation                                               URL of the image file
+
+  -n, --numresults=numresults                                                       [default: 2] Number of probabilities
+                                                                                    to return. Optional. If passed, must
+                                                                                    be a number greater than zero.
+
+  -s, --sampleid=sampleid                                                           String that you can pass in to tag
+                                                                                    the prediction. Optional. Can be any
+                                                                                    value, and is returned in the
+                                                                                    response
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/vision/detect.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/vision/detect.js)_
+
+## `sfdx eai:vision:models -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+get a list of all your datasets, or provide an Id to get the details of a specific dataset
+
+```
+USAGE
+  $ sfdx eai:vision:models -i <string> [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -i, --datasetid=datasetid                                                         (required) dataset id to retrieve
+                                                                                    the models for
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/vision/models.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/vision/models.js)_
+
+## `sfdx eai:vision:models:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+request that a dataset be deleted
+
+```
+USAGE
+  $ sfdx eai:vision:models:delete -i <string> [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -i, --modelid=modelid                                                             (required) modelset id to delete
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/vision/models/delete.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/vision/models/delete.js)_
+
+## `sfdx eai:vision:models:learningcurve -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+get a list of all your datasets, or provide an Id to get the details of a specific dataset
+
+```
+USAGE
+  $ sfdx eai:vision:models:learningcurve -i <string> [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -i, --modelid=modelid                                                             (required) model id to retrieve, if
+                                                                                    not specified all datasets are
+                                                                                    retrieved
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/vision/models/learningcurve.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/vision/models/learningcurve.js)_
+
+## `sfdx eai:vision:models:metrics [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+get a list of all your datasets, or provide an Id to get the details of a specific dataset
+
+```
+USAGE
+  $ sfdx eai:vision:models:metrics [-i <string>] [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -i, --modelid=modelid                                                             model id to retrieve, if not
+                                                                                    specified all datasets are retrieved
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/vision/models/metrics.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/vision/models/metrics.js)_
+
+## `sfdx eai:vision:predict -i <string> [-n <integer>] [-b <string> | -c <string> | -l <string>] [-s <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+get a list of all your datasets, or provide an Id to get the details of a specific dataset
+
+```
+USAGE
+  $ sfdx eai:vision:predict -i <string> [-n <integer>] [-b <string> | -c <string> | -l <string>] [-s <string>] [--json] 
+  [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -b, --samplebase64content=samplebase64content                                     The image contained in a base64
+                                                                                    string
+
+  -c, --samplecontent=samplecontent                                                 Binary content of image file
+
+  -i, --modelid=modelid                                                             (required) model id to make
+                                                                                    prediction against
+
+  -l, --samplelocation=samplelocation                                               URL of the image file
+
+  -n, --numresults=numresults                                                       [default: 2] Number of probabilities
+                                                                                    to return. Optional. If passed, must
+                                                                                    be a number greater than zero.
+
+  -s, --sampleid=sampleid                                                           String that you can pass in to tag
+                                                                                    the prediction. Optional. Can be any
+                                                                                    value, and is returned in the
+                                                                                    response
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+     Oauth token obtained!
+```
+
+_See code: [lib/commands/eai/vision/predict.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/vision/predict.js)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin

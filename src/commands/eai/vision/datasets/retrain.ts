@@ -1,8 +1,8 @@
 import { flags, SfdxCommand } from '@salesforce/command';
-import { ConfigFile, Messages } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 
-import fetch = require('node-fetch');
+import EAITransport from '../../../../utils/transport';
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 
@@ -43,9 +43,7 @@ export default class RetrainVisionDataSet extends SfdxCommand {
 
   public async run(): Promise<AnyJson> {
     const formData = require('form-data');
-    const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
 
-    const authtoken = econfig.get('token');
     const path: string = 'https://api.einstein.ai/v2/vision/retrain';
 
     this.validateCommand();
@@ -56,21 +54,13 @@ export default class RetrainVisionDataSet extends SfdxCommand {
     if (this.flags.learningrate) form.append('learningRate', this.flags.learningrate);
     if (this.flags.trainparams) form.append('trainParams', this.flags.trainparams);
 
-    return fetch(path, {
-            body: form,
-            headers: {
-              Authorization: 'Bearer ' + authtoken
-            },
-            method: 'POST'
-    }).then(res => {
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
-      this.ux.log('Successfully submitted dataset for re-training');
-      return res.json().then(data => {
-        console.log(JSON.stringify(data, null, 4));
-        return data;
-      });
+    const transport = new EAITransport();
+
+    return transport.makeRequest({ form, path, method: 'POST' })
+    .then(data => {
+      const responseMessage = 'Successfully retrieved prediction';
+      this.ux.log(responseMessage);
+      return { message: responseMessage, data };
     });
 
   }

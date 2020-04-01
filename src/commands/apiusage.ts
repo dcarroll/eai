@@ -1,7 +1,7 @@
 import { SfdxCommand } from '@salesforce/command';
-import { ConfigFile, Messages } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
-import fetch = require('node-fetch');
+import EAITransport from '../utils/transport';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
@@ -38,24 +38,15 @@ export default class ApiUsage extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
-
-    const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
-
-    const authtoken = econfig.get('token');
     const path: string = 'https://api.einstein.ai/v2/apiusage';
 
-    return fetch(path, {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              Authorization: 'Bearer ' + authtoken
-            },
-            method: 'GET'
-    }).then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      this.ux.log('API Usage');
-      return { message: 'Retrieved api usage', data: response.json() };
+    const transport = new EAITransport();
+
+    return transport.makeRequest({ form: null, path, method: 'GET' })
+    .then(data => {
+      const responseMessage = 'Successfully retrieved api usage';
+      this.ux.log(responseMessage);
+      return { message: responseMessage, data };
     });
 
   }

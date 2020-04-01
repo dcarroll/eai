@@ -1,15 +1,15 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
-import EAITransport from '../../../../../utils/transport';
+import EAITransport from '../../../utils/transport';
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:vision:datasets:train', 'status');
+const messages = Messages.loadMessages('eai:language', 'datasets');
 
-export default class VisionTrainingStatus extends SfdxCommand {
+export default class GetLanguageDataSets extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
@@ -23,7 +23,7 @@ export default class VisionTrainingStatus extends SfdxCommand {
 
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
-    trainrequestid: flags.string({char: 'i', required: true, description: 'dataset id to retrieve training status for' })
+    datasetid: flags.string({char: 'i', required: false, description: 'dataset id to retrieve, if not specified all datasets are retrieved' })
   };
 
   // Comment this out if your command does not require an org username
@@ -38,13 +38,13 @@ export default class VisionTrainingStatus extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
-    const path: string = (this.flags.deletrequestid) ? 'https://api.einstein.ai/v2/vision/train/' + this.flags.deletrequestid : 'https://api.einstein.ai/v2/vision/datasets/';
+    const path: string = (this.flags.datasetid) ? 'https://api.einstein.ai/v2/language/datasets/' + this.flags.datasetid : 'https://api.einstein.ai/v2/language/datasets/';
 
     const transport = new EAITransport();
 
     return transport.makeRequest({ form: null, path, method: 'GET' })
     .then(data => {
-      const responseMessage = 'Successfully retrieved training status';
+      const responseMessage = 'Successfully retrieved language dataset(s)';
       this.ux.log(responseMessage);
       return { message: responseMessage, data };
     });

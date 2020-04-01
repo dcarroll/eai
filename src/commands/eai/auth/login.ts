@@ -2,6 +2,7 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { ConfigFile, Messages, SfdxError } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { readFileSync } from 'fs';
+import { join } from 'path';
 import EAIToken from '../../../utils/token';
 
 // Initialize Messages with the current plugin directory
@@ -62,6 +63,7 @@ export default class Login extends SfdxCommand {
     econfig.set('username', this.flags.name);
     econfig.set('token', authtoken.access_token);
     econfig.set('expiry', authtoken.expires_in);
+    econfig.set('pemlocation', join(process.cwd(), this.flags.pemlocation));
     econfig.write();
     this.ux.log('Successfully obtained auth token');
 

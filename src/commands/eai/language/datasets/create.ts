@@ -2,16 +2,15 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages, SfdxError } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { createReadStream } from 'fs';
-import EAITransport from './../../../../utils/transport';
-
+import EAITransport from '../../../../utils/transport';
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:vision:datasets', 'create');
+const messages = Messages.loadMessages('eai:language:datasets', 'create');
 
-export default class CreateVisionDataSet extends SfdxCommand {
+export default class CreateLanguageDataSet extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
@@ -25,12 +24,11 @@ export default class CreateVisionDataSet extends SfdxCommand {
 
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
-    labels: flags.string({char: 'b', required: true, description: 'Comma-separated list of labels. Maximum number of labels per dataset is 250' }),
-    name: flags.string({char: 'n', required: true, description: 'Name of the dataset. Maximum length is 180 characters.' }),
+    data: flags.string({char: 'd', required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
     language: flags.string({char: 'l', required: false, default: 'N/A', description: 'Dataset language. Optional. Default is N/A. Reserved for future use.' }),
-    type: flags.string({char: 't', required: true, description: 'Type of dataset data. Valid values are image and image-multi-label. Available in Einstein Vision API version 2.0 and later.'}),
+    name: flags.string({char: 'n', required: false, description: 'Name of the dataset. Maximum length is 180 characters.' }),
     path: flags.string({char: 'p', required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
-    data: flags.string({char: 'd', required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'})
+    type: flags.string({char: 't', required: true, description: 'Type of dataset data. Valid values are image and image-multi-label. Available in Einstein Vision API version 2.0 and later.'})
   };
 
   // Comment this out if your command does not require an org username
@@ -46,10 +44,8 @@ export default class CreateVisionDataSet extends SfdxCommand {
 
   public async run(): Promise<AnyJson> {
     const formData = require('form-data');
-    // const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
 
-    // const authtoken = econfig.get('token');
-    const path: string = 'https://api.einstein.ai/v2/vision/datasets/upload/sync';
+    const path: string = 'https://api.einstein.ai/v2/language/datasets/upload/sync';
 
     this.validateCommand();
 
@@ -60,32 +56,16 @@ export default class CreateVisionDataSet extends SfdxCommand {
       form.append('data', createReadStream(this.flags.data));
     }
     form.append('type', this.flags.type);
-    form.append('labels', this.flags.labels);
-    form.append('name', this.flags.name);
+    if (this.flags.name) form.append('name', this.flags.name);
 
     const transport = new EAITransport();
 
     return transport.makeRequest({ form, path, method: 'POST' })
     .then(data => {
-      console.log(JSON.stringify(data, null, 4));
-      return data;
+      const responseMessage = 'Successfully created language dataset';
+      this.ux.log(responseMessage);
+      return { message: responseMessage, data };
     });
-    /*return fetch(path, {
-            body: form,
-            headers: {
-              Authorization: 'Bearer ' + authtoken
-            },
-            method: 'POST'
-    }).then(res => {
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
-      this.ux.log('Successfully submitted dataset for creation');
-      return res.json().then(data => {
-        console.log(JSON.stringify(data, null, 4));
-        return data;
-      });
-    });*/
 
   }
 
