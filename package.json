@@ -55,6 +55,9 @@
             "eai": {
                 "description": "E.ai API Client"
             },
+            "eai:auth": {
+                "description": "Token management for eai APIs"
+            },
             "eai:vision": {
                 "description": "Commands to manage vision services"
             },

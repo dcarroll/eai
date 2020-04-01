@@ -2,7 +2,7 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { ConfigFile, Messages, SfdxError } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { readFileSync } from 'fs';
-import EAIToken from '../../utils/token';
+import EAIToken from '../../../utils/token';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);

@@ -31,7 +31,7 @@ USAGE
 <!-- usagestop -->
 <!-- commands -->
 * [`sfdx apiusage [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-apiusage---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-* [`sfdx auth:login [-n <string>] [-f <string>] [-e <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-authlogin--n-string--f-string--e-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:auth:login [-n <string>] [-f <string>] [-e <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaiauthlogin--n-string--f-string--e-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasets--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets:create -b <string> -n <string> -t <string> [-l <string>] [-p <string>] [-d <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetscreate--b-string--n-string--t-string--l-string--p-string--d-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetsdelete--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
@@ -61,13 +61,13 @@ EXAMPLE
 
 _See code: [lib/commands/apiusage.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/apiusage.js)_
 
-## `sfdx auth:login [-n <string>] [-f <string>] [-e <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx eai:auth:login [-n <string>] [-f <string>] [-e <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 download an OAuth token for your account
 
 ```
 USAGE
-  $ sfdx auth:login [-n <string>] [-f <string>] [-e <string>] [--json] [--loglevel 
+  $ sfdx eai:auth:login [-n <string>] [-f <string>] [-e <string>] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -88,11 +88,11 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/auth/login.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/auth/login.js)_
+_See code: [lib/commands/eai/auth/login.js](https://github.com/dcarroll/eai/blob/v0.0.0/lib/commands/eai/auth/login.js)_
 
 ## `sfdx eai:vision:datasets [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
-get a list of all your datasets
+get a list of all your datasets, or provide an Id to get the details of a specific dataset
 
 ```
 USAGE
