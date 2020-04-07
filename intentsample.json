@@ -1,0 +1,23 @@
+{
+  "status": 0,
+  "result": {
+    "message": "Successfully retrieved prediction",
+    "data": {
+      "probabilities": [
+        {
+          "probability": 0.9905618,
+          "label": "Shipping Info"
+        },
+        {
+          "probability": 0.007956905,
+          "label": "Order Change"
+        },
+        {
+          "probability": 0.0011080542,
+          "label": "Password Help"
+        }
+      ],
+      "object": "predictresponse"
+    }
+  }
+}

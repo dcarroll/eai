@@ -7,14 +7,14 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:vision:datasets', 'delete');
+const messages = Messages.loadMessages('eai:vision:models', 'delete');
 
 export default class DeleteVisionModel extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+  `$ sfdx eai:vision:models:delete --username myOrg@example.com --pemlocation secrets/einstein.pem
   Oauth token obtained!
   `
   ];

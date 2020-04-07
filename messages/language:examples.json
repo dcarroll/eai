@@ -1,0 +1,7 @@
+{
+    "commandDescription": "adds examples from a .csv, .tsv, or .json file to a dataset.",
+    "nameFlagDescription": "name to print",
+    "forceFlagDescription": "example boolean flag",
+    "errorNoOrgResults": "No results found for the org '%s'.",
+    "commandSuccess": "successfully sent examples to be added to the dataset $s"
+}

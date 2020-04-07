@@ -6,36 +6,34 @@ import EAITransport from '../../../../utils/transport';
 
 Messages.importMessagesDirectory(__dirname);
 
-const messages = Messages.loadMessages('eai:language:datasets', 'create');
+const messages = Messages.loadMessages('eai:language:examples', 'create');
 
-export default class CreateLanguageDataSet extends SfdxCommand {
+export default class CreateLanguageExample extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:language:datasets:create --type text-intent --data /mylocaldatapath.csv
+  `$ sfdx eai:language:examples:create --datasetid 1187600 --path =http://einstein.ai/text/weather_update.csv
   Oauth token obtained!
   `
   ];
 
   protected static flagsConfig = {
-    data: flags.string({char: 'd', exclusive: ['path'], required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
-    language: flags.string({char: 'l', required: false, default: 'N/A', description: 'Dataset language. Optional. Default is N/A. Reserved for future use.' }),
-    name: flags.string({char: 'n', required: false, description: 'Name of the dataset. Maximum length is 180 characters.' }),
+    // flag with a value (-n, --name=VALUE)
+    data: flags.string({char: 'd', exclusive: ['path'], required: false, description: 'local path to the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
     path: flags.string({char: 'p', exclusive: ['data'], required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
-    type: flags.string({char: 't', required: true, description: 'Type of dataset data. Valid values are image and image-multi-label. Available in Einstein Vision API version 2.0 and later.'})
+    datasetid: flags.string({char: 'i', required: true, description: 'dataset id to add the examples to'})
   };
 
   protected static requiresUsername = false;
   protected static supportsDevhubUsername = false;
   protected static requiresProject = false;
-
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
     const formData = require('form-data');
 
-    const path: string = 'https://api.einstein.ai/v2/language/datasets/upload/sync';
+    const path: string = `https://api.einstein.ai/v2/language/datasets/${this.flags.datasetid}/upload`;
 
     const form = new formData();
     if (this.flags.path) {
@@ -43,18 +41,19 @@ export default class CreateLanguageDataSet extends SfdxCommand {
     } else {
       form.append('data', createReadStream(this.flags.data));
     }
-    form.append('type', this.flags.type);
-    if (this.flags.name) form.append('name', this.flags.name);
 
     const transport = new EAITransport();
 
-    return transport.makeRequest({ form, path, method: 'POST' })
+    return transport.makeRequest({ form, path, method: 'PUT' })
     .then(data => {
       const responseMessage = messages.getMessage('commandSuccess', [ data.id ]);
       this.ux.log(responseMessage);
-      this.ux.styledObject(data, [ 'id', 'name', 'totalExamples', 'totalLabels', 'type']);
+      this.formatResults(data);
       return { message: responseMessage, data };
     });
+  }
 
+  private formatResults(data) {
+    this.ux.styledObject(data, [ 'id', 'type', 'statusMsg' ]);
   }
 }

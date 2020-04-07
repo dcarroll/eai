@@ -1,5 +1,5 @@
 import { flags, SfdxCommand } from '@salesforce/command';
-import { ConfigFile, Messages, SfdxError } from '@salesforce/core';
+import { ConfigFile, Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -10,68 +10,43 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:vision:auth', 'login');
+const messages = Messages.loadMessages('eai:auth', 'login');
 
 export default class Login extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:auth:login --username myOrg@example.com --pemlocation secrets/einstein.pem
-  Oauth token obtained!
+  `$ sfdx eai:auth:login -n name@company.com -f einstein_platform.pem -e 1
+  Successfully obtained auth token for name@company.com
   `
   ];
 
-  // public static args = [{name: 'file'}];
-
   protected static flagsConfig = {
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({char: 'n', description: messages.getMessage('nameFlagDescription')}),
-    pemlocation: flags.string({char: 'f', description: messages.getMessage('forceFlagDescription')}),
-    expiration: flags.string({char: 'e', description: 'number of minutes until token expires' })
+    name: flags.string({char: 'n', required: true, description: messages.getMessage('nameFlagDescription')}),
+    pemlocation: flags.string({char: 'f', required: true, description: messages.getMessage('pemFlagDescription')}),
+    expiration: flags.number({char: 'e', default: 1, description: messages.getMessage('expirationFlagDescription') })
   };
 
-  // Comment this out if your command does not require an org username
   protected static requiresUsername = false;
-
-  // Comment this out if your command does not support a hub org username
   protected static supportsDevhubUsername = false;
-
-  // Set this to true if your command requires a project workspace; 'requiresProject' is false by default
   protected static requiresProject = false;
-
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
     const name = this.flags.name;
-
-    if (!this.flags.name) {
-      throw new SfdxError(messages.getMessage('errorNoOrgResults'));
-    }
-
-    if (!this.flags.pemlocation) {
-      throw new SfdxError(messages.getMessage('errorNoOrgResults'));
-    }
-
-    this.setConfig();
     const PRIV_KEY = readFileSync(this.flags.pemlocation, 'utf8');
-
     const eaitoken = new EAIToken();
     const authtoken = await eaitoken.getAccessToken(name, this.flags.expiration, PRIV_KEY);
-
     const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
+
     econfig.set('username', this.flags.name);
     econfig.set('token', authtoken.access_token);
     econfig.set('expiry', authtoken.expires_in);
     econfig.set('pemlocation', join(process.cwd(), this.flags.pemlocation));
     econfig.write();
-    this.ux.log('Successfully obtained auth token');
 
-    // Return an object to be displayed with --json
-    return { username: name, message: 'Successfully obtained auth token' };
+    this.ux.log(messages.getMessage('commandSuccess', [ this.flags.name ]));
+    return { username: name, message: messages.getMessage('commandSuccess', [ this.flags.name ]) };
   }
-
-  private setConfig() {
-  }
-
 }

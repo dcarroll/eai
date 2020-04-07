@@ -1,20 +1,21 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
+import { createReadStream } from 'fs';
 import EAITransport from '../../../../utils/transport';
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:vision:models', 'metrics');
+const messages = Messages.loadMessages('eai:language:feedback', 'create');
 
-export default class GetVisionModelMetrics extends SfdxCommand {
+export default class CreateLanguageFeedback extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
+  `$ sfdx eai:datasets:vision:create --username myOrg@example.com --pemlocation secrets/einstein.pem
   Oauth token obtained!
   `
   ];
@@ -23,7 +24,9 @@ export default class GetVisionModelMetrics extends SfdxCommand {
 
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
-    modelid: flags.string({char: 'i', required: false, description: 'model id to retrieve, if not specified all datasets are retrieved' })
+    document: flags.string({char: 'd', required: true, description: 'Intent or sentiment string to add to the dataset.'}),
+    expectedlabel: flags.string({char: 'l', required: true, description: 'Correct label for the example. Must be a label that exists in the dataset.'}),
+    modelid: flags.string({char: 'i', required: true, description: 'model id to add the feedback to'})
   };
 
   // Comment this out if your command does not require an org username
@@ -38,13 +41,20 @@ export default class GetVisionModelMetrics extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
-    const path: string = (this.flags.datasetid) ? 'https://api.einstein.ai/v2/vision/models/' + this.flags.datasetid : 'https://api.einstein.ai/v2/vision/datasets/';
+    const formData = require('form-data');
+
+    const path: string = 'https://api.einstein.ai/v2/language/feedback';
+
+    const form = new formData();
+    form.append('document', this.flags.document);
+    form.append('expectedLabel', this.flags.expectedlabel);
+    form.append('modelId', createReadStream(this.flags.modelid));
 
     const transport = new EAITransport();
 
-    return transport.makeRequest({ form: null, path, method: 'GET' })
+    return transport.makeRequest({ form, path, method: 'POST' })
     .then(data => {
-      const responseMessage = 'Successfully retrieved vision model metrics';
+      const responseMessage = 'Successfully created language feedback';
       this.ux.log(responseMessage);
       return { message: responseMessage, data };
     });

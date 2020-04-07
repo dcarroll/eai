@@ -7,7 +7,7 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:vision', 'datasets');
+const messages = Messages.loadMessages('eai:vision:models', 'learningcurve');
 
 export default class GetVisionModelLearningCurve extends SfdxCommand {
 

@@ -7,9 +7,9 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:vision:models', 'metrics');
+const messages = Messages.loadMessages('eai:language:models', 'metrics');
 
-export default class GetVisionModelMetrics extends SfdxCommand {
+export default class GetLanguageModelMetrics extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
@@ -38,13 +38,13 @@ export default class GetVisionModelMetrics extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
-    const path: string = (this.flags.datasetid) ? 'https://api.einstein.ai/v2/vision/models/' + this.flags.datasetid : 'https://api.einstein.ai/v2/vision/datasets/';
+    const path: string = 'https://api.einstein.ai/v2/vision/models/' + this.flags.modelid;
 
     const transport = new EAITransport();
 
     return transport.makeRequest({ form: null, path, method: 'GET' })
     .then(data => {
-      const responseMessage = 'Successfully retrieved vision model metrics';
+      const responseMessage = 'Successfully retrieved language model metrics';
       this.ux.log(responseMessage);
       return { message: responseMessage, data };
     });

@@ -2,5 +2,5 @@
     "commandDescription": "create a new dataset",
     "nameFlagDescription": "name to print",
     "forceFlagDescription": "example boolean flag",
-    "commandSuccess": "Dataset was successfully created with id '%s'"
+    "errorNoOrgResults": "No results found for the org '%s'."
 }

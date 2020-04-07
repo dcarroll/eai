@@ -1,0 +1,7 @@
+{
+    "commandDescription": "download an OAuth token for your account",
+    "commandSuccess": "Successfully obtained access token for '%s'.",
+    "nameFlagDescription": "Your Einstein Platform Services username. You can find your username in the welcome email you receive after you get an account. If you signed up using Salesforce, your username is the email address associated with the org you signed up with.",
+    "pemFlagDescription": "Local path to your Einsten private key certificat (<something>.pem)",
+    "expirationFlagDescription": "number of minutes until token expires"
+}

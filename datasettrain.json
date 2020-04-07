@@ -1,0 +1,25 @@
+{
+  "status": 0,
+  "result": {
+    "message": "Successfully trained language dataset",
+    "data": {
+      "datasetId": 1186269,
+      "datasetVersionId": 0,
+      "name": "Simple Model",
+      "status": "QUEUED",
+      "progress": 0,
+      "createdAt": "2020-04-02T02:33:22.000+0000",
+      "updatedAt": "2020-04-02T02:33:22.000+0000",
+      "modelId": "6WPGACNMPJO2VBVP7MDYMTGDFA",
+      "learningRate": 0,
+      "epochs": 0,
+      "queuePosition": 1,
+      "modelType": "text-intent",
+      "algorithm": "intent",
+      "language": "en_US",
+      "object": "training",
+      "trainParams": null,
+      "trainStats": null
+    }
+  }
+}

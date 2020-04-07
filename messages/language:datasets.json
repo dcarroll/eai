@@ -1,6 +1,5 @@
 {
     "commandDescription": "get a list of all your datasets, or provide an Id to get the details of a specific dataset",
-    "nameFlagDescription": "name to print",
-    "forceFlagDescription": "example boolean flag",
-    "errorNoOrgResults": "No results found for the org '%s'."
+    "datasetIdFlagDescription": "id of dataset to retrieve, if missing all datasets are returned",
+    "commandSuccess": "Successfully retrieved language datasets"
 }

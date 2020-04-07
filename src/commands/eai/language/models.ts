@@ -1,21 +1,20 @@
-import { SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
-import EAITransport from '../utils/transport';
-
+import EAITransport from '../../../utils/transport';
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai', 'apiusage');
+const messages = Messages.loadMessages('eai:language', 'models');
 
-export default class ApiUsage extends SfdxCommand {
+export default class GetLanguageModels extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:apiusage --username myOrg@example.com --pemlocation secrets/einstein.pem
+  `$ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
   Oauth token obtained!
   `
   ];
@@ -24,6 +23,7 @@ export default class ApiUsage extends SfdxCommand {
 
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
+    datasetid: flags.string({char: 'i', required: true, description: 'language dataset id to retrieve models for' })
   };
 
   // Comment this out if your command does not require an org username
@@ -38,17 +38,16 @@ export default class ApiUsage extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
-    const path: string = 'https://api.einstein.ai/v2/apiusage';
+    const path: string = `https://api.einstein.ai/v2/language/datasets/${this.flags.datasetid}/models`;
 
     const transport = new EAITransport();
 
     return transport.makeRequest({ form: null, path, method: 'GET' })
     .then(data => {
-      const responseMessage = 'Successfully retrieved api usage';
+      const responseMessage = 'Successfully retrieved language dataset(s)';
       this.ux.log(responseMessage);
       return { message: responseMessage, data };
     });
 
   }
-
 }

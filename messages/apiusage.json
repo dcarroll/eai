@@ -1,6 +1,4 @@
 {
-    "commandDescription": "view api usages statistics",
-    "nameFlagDescription": "name to print",
-    "forceFlagDescription": "example boolean flag",
-    "errorNoOrgResults": "No results found for the org '%s'."
+    "commandDescription": "Returns prediction usage on a monthly basis for the current calendar month and future months. ",
+    "commandSuccess": "API Usage Summary"
 }
