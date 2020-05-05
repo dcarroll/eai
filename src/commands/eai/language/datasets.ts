@@ -52,7 +52,8 @@ export default class GetLanguageDataSets extends SfdxCommand {
       { key: 'Updated', label: 'Updated' },
       { key: 'Type', label: 'Type' },
       { key: 'Examples', label: 'Examples' },
-      { key: 'Labels', label: 'Labels' }
+      { key: 'Labels', label: 'Labels' },
+      { key: 'Status', label: 'Status' }
     ]};
     const mappedData: Array<{
       DatasetId: string,
@@ -61,7 +62,8 @@ export default class GetLanguageDataSets extends SfdxCommand {
       Updated: string,
       Type: string,
       Examples: number,
-      Labels: number
+      Labels: number,
+      Status: string
     }> = [];
     data.data.forEach(row => {
       if (row.available === true) {
@@ -72,7 +74,8 @@ export default class GetLanguageDataSets extends SfdxCommand {
           Updated: new Date(row.updatedAt).toLocaleString(),
           Type: row.type,
           Examples: row.totalExamples,
-          Labels: row.totalLabels
+          Labels: row.totalLabels,
+          Status: row.statusMsg
         });
       }
     });

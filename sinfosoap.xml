@@ -1,0 +1,136 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Header xmlns:wsa="http://www.w3.org/2005/08/addressing">
+
+        <wsse:Security soapenv:mustUnderstand="1" 
+            xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" 
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            
+            <wsse:BinarySecurityToken EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3" wsu:Id="X509-15D5742D1AF802B6E2158624540958313">MIIDGTCCAgGgAwIBAgIEMremMjANBgkqhkiG9w0BAQsFADAnMQswCQYDVQQGEwJJVDEYMBYGA1UEAwwPU0FMRVNGT1JDRV9URVNUMB4XDTIwMDQwMTA2MzEyOVoXDTQ3MDgxNzA2MzEyOVowJzELMAkGA1UEBhMCSVQxGDAWBgNVBAMMD1NBTEVTRk9SQ0VfVEVTVDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJ0ALo6rXot9W3TKoBM4SDwTQxc2slW7yOyJLPKs9NN/GHS20V4RXhIdDxpzwAgbnlCHz6EBYlLo9yS/XHCg6rNH9QBS/5elyTn23T7MJGizKdqlLjueN1CIZmOmeyUmHC3laPNR0HgO1CqvVRg0yhdY401MOQTsMXQQP7K0eGlxx1bOLdsmQYYlYcHgEBzbrovKNsaLNM6BWaBUa6fJ3GLYgSE1+5Pu38gzQpV2+HugbTojAlxK81UH0nCfsikA1DjRJR9EDYLJ8AaechCwPcPiD51rzW1cOd8sNY/lU0rK0IEJSYPDwNs2/qznBOY4HRS8M9CmvBGi5PSrioukd1UCAwEAAaNNMEswHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMAsGA1UdDwQEAwIEsDAdBgNVHQ4EFgQUCuiUNPWnpBGe3lyiVRhU3BGWfTEwDQYJKoZIhvcNAQELBQADggEBAGJ3qRPdjQIBFBFkHSLyFR406HGPEIvFovo4JY0yWZAiV6bCN+frVZg28/RFrHM96AiBcML0VEqEIYzxuLso9mXWjLjTPx2imoM0QEqmiQxMFo8wbw46IaRRSTKd5QSaf7YIwrGEdwLos9WXlcB9/JQ3xOB3YMcm6s8dbJWCh29/S6WnVOIr889MCvAWRJ8Ai7FSDJ6BwB6S0oMVcHu4FVdvLd3mjdSdQVCcqPb0zA6JZyGYM24LLwvKXtGjSpoKFu6fVWd4LZkoqJlOXebKmJg7bgozLxuwv9sBPQIPJKHIqvnomdaTQh9S1pBu8a6gV4eU7VQ5w9Ni4AgGCpyPp7g=</wsse:BinarySecurityToken>
+            
+            <ds:Signature Id="SIG-15D5742D1AF802B6E2158624540958920" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:SignedInfo>
+                    <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                        <ec:InclusiveNamespaces PrefixList="wsa soapenv" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                    </ds:CanonicalizationMethod>
+                    <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                    
+                    <ds:Reference URI="#TS-15D5742D1AF802B6E2158624540957912">
+                        <ds:Transforms>
+                            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                                <ec:InclusiveNamespaces PrefixList="wsse wsa soapenv" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transform>
+                        </ds:Transforms>
+                        <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                        <ds:DigestValue>TGMa9HzGi+rJuLE7cZeFmybe1kI=</ds:DigestValue>
+                    </ds:Reference>
+                    
+                    <ds:Reference URI="#id-15D5742D1AF802B6E2158624540958316">
+                        <ds:Transforms>
+                            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                                <ec:InclusiveNamespaces PrefixList="" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transform>
+                        </ds:Transforms>
+                        <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                        <ds:DigestValue>Ltw5kVA8VaT3jlfEhKxc+odF34Q=</ds:DigestValue>
+                    </ds:Reference>
+
+                    <ds:Reference URI="#id-15D5742D1AF802B6E2158624540958317">
+                        <ds:Transforms>
+                            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                                <ec:InclusiveNamespaces PrefixList="" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transform>
+                        </ds:Transforms>
+                        <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                        <ds:DigestValue>fu3mXdmevnbRH5roTRDYYMCjYl8=</ds:DigestValue>
+                    </ds:Reference>
+
+                    <ds:Reference URI="#id-15D5742D1AF802B6E2158624540958318">
+                        <ds:Transforms>
+                            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                                <ec:InclusiveNamespaces PrefixList="" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transform>
+                        </ds:Transforms>
+                        <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                        <ds:DigestValue>yvzYUe7UiSPdrrPVMf6s/GwJc5M=</ds:DigestValue>
+                    </ds:Reference>
+                    
+                    <ds:Reference URI="#id-15D5742D1AF802B6E2158624540958419">
+                        <ds:Transforms>
+                            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                                <ec:InclusiveNamespaces PrefixList="" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transform>
+                        </ds:Transforms>
+                        <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                        <ds:DigestValue>Hb0+LKSAYzfIxOLWB0RpcJW094c=</ds:DigestValue>
+                    </ds:Reference>
+
+                    <ds:Reference URI="#id-15D5742D1AF802B6E215862454091679">
+                        <ds:Transforms>
+                            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                                <ec:InclusiveNamespaces PrefixList="wsa soapenv" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transform>
+                        </ds:Transforms>
+                        <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                        <ds:DigestValue>G0xMC1Ud+88AywnBzHSOn7+ouFY=</ds:DigestValue>
+                    </ds:Reference>
+
+                    <ds:Reference URI="#id-15D5742D1AF802B6E2158624540916710">
+                        <ds:Transforms>
+                            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                                <ec:InclusiveNamespaces PrefixList="soapenv" 
+                                    xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transform>
+                        </ds:Transforms>
+                        <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                        <ds:DigestValue>gSv28GqkUCJ4LZxQgIc2jc42F/c=</ds:DigestValue>
+                    </ds:Reference>
+
+                </ds:SignedInfo>
+
+                <ds:SignatureValue>Ep5MSKHqXt3TMpmr701Gn+q/VHwT7dKFfPO9dqxRnB3O0M3WkOpnAvXHms16EcplYncYKdUR4D5Y iKv1p75wqp5gm5cIFeX+A5dzpntqUDboglyzzl6zKigmZCVZGWPw7TJvakTG0Jhq8H9pMcIX/GfDXvctb8Wd696Lp3u2u2eNaXapy1j5bUNdxHhProKQln5F4dzGxy8tSXGP9GooMagv8jpjo3WnQs4RJrZ5pBXcZuG6Z09TaUjDUF/OAm5+qzCW4O9SC9euJGqQXrahvXBlPRiI0ZNClmbvNQdK3Nh/r8DS/6N3l3wAspipMjqFfOMKUWoQLAoLvZkTzcVLvg==</ds:SignatureValue>
+                
+                <ds:KeyInfo Id="KI-15D5742D1AF802B6E2158624540958314">
+                    <wsse:SecurityTokenReference wsu:Id="STR-15D5742D1AF802B6E2158624540958315">
+                        <wsse:Reference URI="#X509-15D5742D1AF802B6E2158624540958313" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
+                    </wsse:SecurityTokenReference>
+                </ds:KeyInfo>
+            </ds:Signature>
+
+            <wsu:Timestamp wsu:Id="TS-15D5742D1AF802B6E2158624540957912">
+                <wsu:Created>2020-04-07T07:43:29.578Z</wsu:Created>
+                <wsu:Expires>2020-04-07T09:06:49.578Z</wsu:Expires>
+            </wsu:Timestamp>
+
+        </wsse:Security>
+        <sch:attributiAutorizzativi wsu:Id="id-15D5742D1AF802B6E215862454091679" 
+            xmlns:sch="http://www.sinfonia.campania.it/Schemas/" 
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <identificativoServizio>getAssistibileInAnagrafe</identificativoServizio>
+            <identificativoUtente>MZZGNI71S19H703B</identificativoUtente>
+            <ruoloIstituzionale>RIS000362</ruoloIstituzionale>
+        </sch:attributiAutorizzativi>
+        <wsa:Action soapenv:mustUnderstand="1" wsu:Id="id-15D5742D1AF802B6E2158624540958318" 
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">http://www.sinfonia.campania.it/Schemas/AssistibileInAnagrafe/getAssistibileInAnagrafeRequest
+        </wsa:Action>
+        <wsa:ReplyTo soapenv:mustUnderstand="1" wsu:Id="id-15D5742D1AF802B6E2158624540958419" 
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+        </wsa:ReplyTo>
+        <wsa:MessageID soapenv:mustUnderstand="1" wsu:Id="id-15D5742D1AF802B6E2158624540958317" 
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">uuid:9f59c266-8fc1-4cec-972f-1af81a9344d9
+        </wsa:MessageID>
+        <wsa:To soapenv:mustUnderstand="1" wsu:Id="id-15D5742D1AF802B6E2158624540958316" 
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">https://sinfo-test.soresa.it/sinfonia/
+        </wsa:To>
+    </soapenv:Header>
+    <soapenv:Body>
+        <sch:getAssistibileInAnagrafe wsu:Id="id-15D5742D1AF802B6E2158624540916710" 
+            xmlns:sch="http://www.sinfonia.campania.it/Schemas/" 
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <request>
+                <codAssistito>RSSMRA20A01F839I</codAssistito>
+                <dataRiferimento>03/04/2020</dataRiferimento>
+            </request>
+        </sch:getAssistibileInAnagrafe>
+    </soapenv:Body>
+</soapenv:Envelope>

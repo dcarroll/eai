@@ -44,10 +44,49 @@ export default class GetLanguageModels extends SfdxCommand {
 
     return transport.makeRequest({ form: null, path, method: 'GET' })
     .then(data => {
-      const responseMessage = 'Successfully retrieved language dataset(s)';
-      this.ux.log(responseMessage);
+      const responseMessage = 'Successfully retrieved model(s)';
+      if (this.flags.modelId) {
+      } else {
+        this.formatResults(data);
+      }
       return { message: responseMessage, data };
     });
 
+  }
+
+  private formatResults(data) {
+    const opts: TableOptions = { columns: [
+      { key: 'ModelId', label: 'Model Id' },
+      { key: 'DatasetId', label: 'Dataset Id'},
+      { key: 'Name', label: 'Name' },
+      { key: 'Created', label: 'Created' },
+      { key: 'Updated', label: 'Updated' },
+      { key: 'Type', label: 'Type' },
+      { key: 'Algorithm', label: 'Algorithm' },
+      { key: 'Status', label: 'Status' }
+    ]};
+    const mappedData: Array<{
+      ModelId: string,
+      DatasetId: string,
+      Name: string,
+      Created: string,
+      Updated: string,
+      Type: string,
+      Algorithm: string,
+      Status: string
+    }> = [];
+    data.data.forEach(row => {
+      mappedData.push({
+          ModelId: row.modelId,
+          DatasetId: row.datasetId,
+          Name: row.name,
+          Created: new Date(row.createdAt).toLocaleString(),
+          Updated: new Date(row.updatedAt).toLocaleString(),
+          Type: row.modelType,
+          Algorithm: row.algorithm,
+          Status: row.status
+        });
+    });
+    this.ux.table(mappedData, opts);
   }
 }
