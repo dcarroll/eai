@@ -5,7 +5,7 @@ import EAITransport from '../../../../utils/transport';
 
 Messages.importMessagesDirectory(__dirname);
 
-const messages = Messages.loadMessages('eai:language:datasets', 'delete');
+const messages = Messages.loadMessages('eaidc:language:datasets', 'delete');
 
 export default class DeleteLanguageDataSet extends SfdxCommand {
 

@@ -6,7 +6,7 @@ import EAITransport from '../../../../utils/transport';
 
 Messages.importMessagesDirectory(__dirname);
 
-const messages = Messages.loadMessages('eai:language:examples', 'create');
+const messages = Messages.loadMessages('eaidc:language:examples', 'create');
 
 export default class CreateLanguageExample extends SfdxCommand {
 

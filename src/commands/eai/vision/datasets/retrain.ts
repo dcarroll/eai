@@ -8,7 +8,7 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:vision:datasets', 'retrain');
+const messages = Messages.loadMessages('eaidc:vision:datasets', 'retrain');
 
 export default class RetrainVisionDataSet extends SfdxCommand {
 

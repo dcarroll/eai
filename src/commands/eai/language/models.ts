@@ -7,7 +7,7 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:language', 'models');
+const messages = Messages.loadMessages('eaidc:language', 'models');
 
 export default class GetLanguageModels extends SfdxCommand {
 

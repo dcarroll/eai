@@ -5,7 +5,7 @@ import EAITransport from '../../../utils/transport';
 
 Messages.importMessagesDirectory(__dirname);
 
-const messages = Messages.loadMessages('eai:language', 'datasets');
+const messages = Messages.loadMessages('eaidc:language', 'datasets');
 
 export default class GetLanguageDataSets extends SfdxCommand {
 

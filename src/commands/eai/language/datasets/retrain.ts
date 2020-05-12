@@ -6,7 +6,7 @@ import EAITransport from '../../../../utils/transport';
 
 Messages.importMessagesDirectory(__dirname);
 
-const messages = Messages.loadMessages('eai:language:datasets', 'retrain');
+const messages = Messages.loadMessages('eaidc:language:datasets', 'retrain');
 
 export default class RetrainLanguageDataSet extends SfdxCommand {
 

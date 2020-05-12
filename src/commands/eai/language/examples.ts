@@ -1,5 +1,5 @@
 import { flags, SfdxCommand, TableOptions } from '@salesforce/command';
-import { Messages } from '@salesforce/core';
+import { Messages, SfdxError } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import EAITransport from '../../../utils/transport';
 // Initialize Messages with the current plugin directory
@@ -7,7 +7,7 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:language', 'examples');
+const messages = Messages.loadMessages('eaidc:language', 'examples');
 
 export default class GetLanguageExamples extends SfdxCommand {
 
@@ -39,6 +39,9 @@ export default class GetLanguageExamples extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
+    if (!this.flags.datasetid && !this.flags.laeblid) {
+      throw new SfdxError('You must provide either the dataset id or the label id');
+    }
     const path: string = (this.flags.datasetid) ? `https://api.einstein.ai/v2/language/datasets/${this.flags.datasetid}/examples/` : `https://api.einstein.ai/v2/language/examples?labelId=${this.flags.labelid}`;
 
     const transport = new EAITransport();

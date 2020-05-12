@@ -1,8 +1,8 @@
 {
-    "name": "eai",
+    "name": "eaidc",
     "description": "Einstein.ai plugin",
-    "version": "0.0.0",
-    "author": "Dave Carroll @dcarroll",
+    "version": "1.0.0",
+    "author": "Dave Carroll @djcarroll",
     "bugs": "https://github.com/dcarroll/eai/issues",
     "dependencies": {
         "@oclif/command": "^1",
@@ -35,7 +35,7 @@
         "tslint": "^5"
     },
     "engines": {
-        "node": ">=8.0.0"
+        "node": ">=10.0.0"
     },
     "files": [
         "/lib",

@@ -1,4 +1,4 @@
-import { flags, SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand, TableOptions } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import EAITransport from '../../../../utils/transport';
@@ -7,7 +7,7 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:vision:models', 'learningcurve');
+const messages = Messages.loadMessages('eaidc:vision:models', 'learningcurve');
 
 export default class GetVisionModelLearningCurve extends SfdxCommand {
 
@@ -47,8 +47,47 @@ export default class GetVisionModelLearningCurve extends SfdxCommand {
     .then(data => {
       const responseMessage = 'Successfully retrieved learning curve';
       this.ux.log(responseMessage);
+      this.formatResults(data);
       return { message: responseMessage, data };
     });
-
   }
+
+  private formatResults(data) {
+    const opts: TableOptions = { columns: [
+      { key: 'Epoch', label: 'Epoch' },
+      { key: 'TrainingLoss', label: 'Training Loss'},
+      { key: 'MeanAveragePrecision', label: 'MA Precision' },
+      { key: 'F1', label: 'F1' },
+      { key: 'Label', label: 'Label' },
+      { key: 'Recall', label: 'Recall' },
+      { key: 'Precision', label: 'Precision' },
+      { key: 'AveragePrecision', label: 'AveragePrecision' }
+    ]};
+    const mappedData: Array<{
+      Epoch: number,
+      TrainingLoss: number,
+      MeanAveragePrecision: number,
+      F1: string,
+      Label: string,
+      Recall: string,
+      Precision: string,
+      AveragePrecision: number
+    }> = [];
+    data.data.forEach(row => {
+      row.metricsData.labelMetrics.forEach(lrow => {
+        mappedData.push({
+          Epoch: row.epoch,
+          TrainingLoss: row.metricsData.modelMetrics.trainingLoss,
+          MeanAveragePrecision: row.metricsData.modelMetrics.meanAveragePrecision,
+          F1: lrow.f1,
+          Label: lrow.label,
+          Recall: JSON.stringify(lrow.recall),
+          Precision: JSON.stringify(lrow.precision),
+          AveragePrecision: lrow.averagePrecision
+        });
+      });
+    });
+    this.ux.table(mappedData, opts);
+  }
+
 }

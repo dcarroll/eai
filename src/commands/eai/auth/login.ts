@@ -10,7 +10,7 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('eai:auth', 'login');
+const messages = Messages.loadMessages('eaidc:auth', 'login');
 
 export default class Login extends SfdxCommand {
 
@@ -34,10 +34,9 @@ export default class Login extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
-    const name = this.flags.name;
     const PRIV_KEY = readFileSync(this.flags.pemlocation, 'utf8');
     const eaitoken = new EAIToken();
-    const authtoken = await eaitoken.getAccessToken(name, this.flags.expiration, PRIV_KEY);
+    const authtoken = await eaitoken.getAccessToken(this.flags.name, this.flags.expiration, PRIV_KEY);
     const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
 
     econfig.set('username', this.flags.name);
@@ -47,6 +46,6 @@ export default class Login extends SfdxCommand {
     econfig.write();
 
     this.ux.log(messages.getMessage('commandSuccess', [ this.flags.name ]));
-    return { username: name, message: messages.getMessage('commandSuccess', [ this.flags.name ]) };
+    return { username: this.flags.name, message: messages.getMessage('commandSuccess', [ this.flags.name ]) };
   }
 }
