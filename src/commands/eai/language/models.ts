@@ -1,4 +1,4 @@
-import { flags, SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand, TableOptions } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import EAITransport from '../../../utils/transport';
@@ -45,10 +45,8 @@ export default class GetLanguageModels extends SfdxCommand {
     return transport.makeRequest({ form: null, path, method: 'GET' })
     .then(data => {
       const responseMessage = 'Successfully retrieved model(s)';
-      if (this.flags.modelId) {
-      } else {
-        this.formatResults(data);
-      }
+      this.formatResults(data);
+
       return { message: responseMessage, data };
     });
 

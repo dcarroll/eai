@@ -25,7 +25,7 @@ export default class CreateVisionDataSet extends SfdxCommand {
 
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
-    labels: flags.string({char: 'b', required: true, description: 'Comma-separated list of labels. Maximum number of labels per dataset is 250' }),
+    labels: flags.string({char: 'b', required: false, description: 'Comma-separated list of labels. Maximum number of labels per dataset is 250' }),
     name: flags.string({char: 'n', required: true, description: 'Name of the dataset. Maximum length is 180 characters.' }),
     language: flags.string({char: 'l', required: false, default: 'N/A', description: 'Dataset language. Optional. Default is N/A. Reserved for future use.' }),
     type: flags.string({char: 't', required: true, description: 'Type of dataset data. Valid values are image and image-multi-label. Available in Einstein Vision API version 2.0 and later.'}),
@@ -60,7 +60,7 @@ export default class CreateVisionDataSet extends SfdxCommand {
       form.append('data', createReadStream(this.flags.data));
     }
     form.append('type', this.flags.type);
-    form.append('labels', this.flags.labels);
+    if (this.flags.labels) form.append('labels', this.flags.labels);
     form.append('name', this.flags.name);
 
     const transport = new EAITransport();

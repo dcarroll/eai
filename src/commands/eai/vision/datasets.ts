@@ -1,4 +1,4 @@
-import { flags, SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand, TableOptions } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import EAITransport from './../../../utils/transport';
@@ -45,8 +45,52 @@ export default class GetVisionDataSets extends SfdxCommand {
 
     return transport.makeRequest({ form: null, path, method: 'GET' })
     .then(data => {
-      this.ux.log('Successfully retrieved dataset');
-      return { message: 'Successfully retrieved dataset', data };
+      const responseMessage = messages.getMessage('commandSuccess');
+      this.ux.log(responseMessage);
+      if (this.flags.datasetid) {
+      } else {
+        this.formatResults(data);
+      }
+      return { message: responseMessage, data };
     });
   }
+
+  private formatResults(data) {
+    const opts: TableOptions = { columns: [
+      { key: 'DatasetId', label: 'Id' },
+      { key: 'Name', label: 'Name' },
+      { key: 'Created', label: 'Created' },
+      { key: 'Updated', label: 'Updated' },
+      { key: 'Type', label: 'Type' },
+      { key: 'Examples', label: 'Examples' },
+      { key: 'Labels', label: 'Labels' },
+      { key: 'Status', label: 'Status' }
+    ]};
+    const mappedData: Array<{
+      DatasetId: string,
+      Name: string,
+      Created: string,
+      Updated: string,
+      Type: string,
+      Examples: number,
+      Labels: number,
+      Status: string
+    }> = [];
+    data.data.forEach(row => {
+      if (row.available === true) {
+        mappedData.push({
+          DatasetId: row.id,
+          Name: row.name,
+          Created: new Date(row.createdAt).toLocaleString(),
+          Updated: new Date(row.updatedAt).toLocaleString(),
+          Type: row.type,
+          Examples: row.totalExamples,
+          Labels: row.totalLabels,
+          Status: row.statusMsg
+        });
+      }
+    });
+    this.ux.table(mappedData, opts);
+  }
+
 }

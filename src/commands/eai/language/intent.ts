@@ -1,4 +1,4 @@
-import { flags, SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand, TableOptions } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import EAITransport from '../../../utils/transport';
@@ -55,10 +55,29 @@ export default class LanguagePredict extends SfdxCommand {
 
     return transport.makeRequest({ form, path, method: 'POST' })
     .then(data => {
-      const responseMessage = 'Successfully retrieved prediction';
+      const responseMessage = 'Successfully retrieved predictions';
       this.ux.log(responseMessage);
+      this.formatResults(data);
       return { message: responseMessage, data };
     });
-
   }
+
+  private formatResults(data) {
+    const opts: TableOptions = { columns: [
+      { key: 'Probability', label: 'Probability' },
+      { key: 'Label', label: 'Label'}
+    ]};
+    const mappedData: Array<{
+      Probability: number,
+      Label: string
+    }> = [];
+    data.probabilities.forEach(row => {
+      mappedData.push({
+          Probability: row.probability,
+          Label: row.label
+        });
+    });
+    this.ux.table(mappedData, opts);
+  }
+
 }

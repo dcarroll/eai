@@ -20,7 +20,7 @@ export default class EAITransport {
                     method: requestData.method
                 }).then(async res => {
                     if (!res.ok) {
-                        throw new SfdxError(res.statusText);
+                        throw new SfdxError(JSON.parse(res.body.read().toString()).message);
                     } else {
                         return res.json().then(data => {
                             return data;
