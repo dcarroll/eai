@@ -1,6 +1,7 @@
-import { SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
+import { write } from 'clipboardy';
 import EAIToken from '../../../utils/token';
 
 // Initialize Messages with the current plugin directory
@@ -18,6 +19,7 @@ export default class GetToken extends SfdxCommand {
   ];
 
   protected static flagsConfig = {
+    toclipboard: flags.boolean({ char: 'c', description: 'add token to clipboard without displaying in terminal' })
   };
 
   protected static requiresUsername = false;
@@ -28,8 +30,12 @@ export default class GetToken extends SfdxCommand {
   public async run(): Promise<AnyJson> {
     const eaitoken = new EAIToken();
     const configToken = await eaitoken.getConfigToken();
-
-    this.ux.log('Retrieved token for ' + configToken.user_name + '\n' + configToken.access_token);
-    return { username: configToken.user_name, token: configToken.access_token };
+    if (this.flags.toclipboard) {
+      await write(configToken.access_token);
+      this.ux.log('Token has been placed in your clipboard.');
+    } else {
+      this.ux.log('Retrieved token for ' + configToken.user_name + '\n' + configToken.access_token);
+      return { username: configToken.user_name, token: configToken.access_token };
+    }
   }
 }

@@ -81,31 +81,4 @@ export default class GetLanguageModelMetrics extends SfdxCommand {
     this.ux.table(mappedData, opts);
   }
 
-  private formatResultsLabels(data) {
-    const opts: TableOptions = { columns: [
-      { key: 'Label', label: 'Label' },
-      { key: 'F1', label: 'F1' },
-      { key: 'AveragePrecision', label: 'Avg Prec' },
-      { key: 'Precision', label: 'Precision' },
-      { key: 'Recall', label: 'Recall' }
-    ]};
-    const mappedData: Array<{
-      Label: string,
-      F1: number,
-      AveragePrecision: number,
-      Precision: string,
-      Recall: string
-    }> = [];
-    data.metricsData.labelMetrics.forEach(row => {
-      mappedData.push({
-          Label: row.label,
-          F1: row.f1,
-          AveragePrecision: row.averagePrecision,
-          Precision: JSON.stringify(row.precision),
-          Recall: JSON.stringify(row.recall)
-        });
-    });
-    this.ux.table(mappedData, opts);
-  }
-
 }
