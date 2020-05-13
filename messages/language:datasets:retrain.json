@@ -6,5 +6,6 @@
     "nameFlagDescription": "Name of the model. Maximum length is 180 characters",
     "trainparamsFlagDescription": "JSON that contains parameters that specify how the model is created.",
     "commandSuccess": "Successfully requested to retrain the model: '%s'",
-    "statusCommandPrompt": "You can check the status of the training by entering the command below\n%s"
+    "statusCommandPrompt": "You can check the status of the training by entering the command below\n%s",
+    "statusCommandPromptClipboard": "The command below has been placed in your clipboard\n%s"
 }

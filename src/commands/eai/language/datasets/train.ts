@@ -1,7 +1,7 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
-
+import { write } from 'clipboardy';
 import EAITransport from '../../../../utils/transport';
 
 Messages.importMessagesDirectory(__dirname);
@@ -27,7 +27,8 @@ export default class TrainLanguageDataSet extends SfdxCommand {
     epochs: flags.integer({char: 'e', required: false, description: messages.getMessage('epochsFlagDescription')}),
     learningrate: flags.number({char: 'r', required: false, description: messages.getMessage('learningRateFlagDescription')}),
     name: flags.string({char: 'n', required: true, description: messages.getMessage('nameFlagDescription')}),
-    trainparams: flags.string({char: 'p', required: false, description: messages.getMessage('trainParamsFlagDescription')})
+    trainparams: flags.string({char: 'p', required: false, description: messages.getMessage('trainParamsFlagDescription')}),
+    clipboard: flags.boolean({ char: 'c', description: 'places the dataset train status command in your clipboard' })
   };
 
   protected static requiresUsername = false;
@@ -51,11 +52,16 @@ export default class TrainLanguageDataSet extends SfdxCommand {
     const transport = new EAITransport();
 
     return transport.makeRequest({ form, path, method: 'POST' })
-    .then(data => {
+    .then(async data => {
       const responseMessage = messages.getMessage('commandSuccess', [ data.datasetId, data.status ]);
       this.ux.log(responseMessage);
       const nextCommand = `sfdx eai:language:datasets:train:status -i ${data.modelId}`;
-      this.ux.log(messages.getMessage('statusCommandPrompt', [ nextCommand ]));
+      if (this.flags.clipboard) {
+        this.ux.log(messages.getMessage('statusCommandPromptClipboard', [ nextCommand ]));
+        await write(nextCommand);
+      } else {
+        this.ux.log(messages.getMessage('statusCommandPrompt', [ nextCommand ]));
+      }
       return { message: responseMessage, data, nextCommand };
     });
 

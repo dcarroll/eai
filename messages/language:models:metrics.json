@@ -1,5 +1,5 @@
 {
-    "commandDescription": "get a list of all your datasets, or provide an Id to get the details of a specific dataset",
+    "commandDescription": "returns the metrics for a model, such as the f1 score, accuracy, and confusion matrix.",
     "nameFlagDescription": "name to print",
     "forceFlagDescription": "example boolean flag",
     "errorNoOrgResults": "No results found for the org '%s'."

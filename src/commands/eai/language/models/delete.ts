@@ -14,8 +14,7 @@ export default class DeleteLanguageModel extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:language:models:delete --username myOrg@example.com --pemlocation secrets/einstein.pem
-  Oauth token obtained!
+  `$ sfdx eai:language:models:delete --modelid 4ZZEIOI4FXFWSTEYVFLZXEMOFU
   `
   ];
 
@@ -44,7 +43,7 @@ export default class DeleteLanguageModel extends SfdxCommand {
 
     return transport.makeRequest({ form: null, path, method: 'DELETE' })
     .then(data => {
-      const responseMessage = 'Successfully deleted language model';
+      const responseMessage = 'Successfully queued language model for deletion';
       this.ux.log(responseMessage);
       return { message: responseMessage, data };
     });

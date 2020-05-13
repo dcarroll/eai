@@ -15,8 +15,7 @@ export default class CreateLanguageFeedback extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:datasets:vision:create --username myOrg@example.com --pemlocation secrets/einstein.pem
-  Oauth token obtained!
+  `$ sfdx eai:language:feeback:create --modelid 4353445 --document "Is it snowing in Denver" --expectedlabel "current-weather"
   `
   ];
 

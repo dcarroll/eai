@@ -14,7 +14,7 @@ export default class LanguagePredict extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:language:intent --username myOrg@example.com --pemlocation secrets/einstein.pem
+  `$ sfdx eai:language:intent --modelid  I3JZ7A5UJRRKU7EZGXZQLKEUZI --document "what is the weather in los angeles"
   Oauth token obtained!
   `
   ];

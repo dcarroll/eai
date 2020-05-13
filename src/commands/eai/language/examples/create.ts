@@ -14,7 +14,6 @@ export default class CreateLanguageExample extends SfdxCommand {
 
   public static examples = [
   `$ sfdx eai:language:examples:create --datasetid 1187600 --path =http://einstein.ai/text/weather_update.csv
-  Oauth token obtained!
   `
   ];
 

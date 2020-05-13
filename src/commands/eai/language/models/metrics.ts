@@ -14,8 +14,7 @@ export default class GetLanguageModelMetrics extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
-  Oauth token obtained!
+  `$ sfdx eai:language:models:metrics --modelid  4ZZEIOI4FXFWSTEYVFLZXEMOFU
   `
   ];
 

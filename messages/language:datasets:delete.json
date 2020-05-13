@@ -2,5 +2,6 @@
     "commandDescription": "request that a dataset be deleted",
     "datasetIdFlagDescription": "Id of the dataset to be trained",
     "commandSuccess": "Successfully queued dataset '%s' for deletion",
-    "statusCommandPrompt": "You can check the status of the delete requestio by entering the command below\n%s"
+    "statusCommandPrompt": "You can check the status of the delete requestio by entering the command below\n%s",
+    "statusCommandPromptClipboard": "The command below has been placed in your clipboard\n%s"
 }

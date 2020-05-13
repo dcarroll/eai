@@ -21,7 +21,6 @@ export default class VisionTrainingStatus extends SfdxCommand {
   modelId:          TDD3UH52XGFRUMC2D63R24H4KM
   modelType:        text-intent
   updatedAt:        2020-04-05T21:20:10.000+0000
-
   `
   ];
 

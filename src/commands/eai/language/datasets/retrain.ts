@@ -1,7 +1,7 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
-
+import { write } from 'clipboardy';
 import EAITransport from '../../../../utils/transport';
 
 Messages.importMessagesDirectory(__dirname);
@@ -29,7 +29,8 @@ export default class RetrainLanguageDataSet extends SfdxCommand {
     modelid: flags.string({char: 'i', required: true, description: 'Id of the model to be retrained' }),
     epochs: flags.integer({char: 'e', required: false, description: 'Number of training iterations for the neural network. Optional. Valid values are 1–1,000.' }),
     learningrate: flags.number({char: 'r', required: false, description: 'Specifies how much the gradient affects the optimization of the model at each time step. Optional. Use this parameter to tune your model. Valid values are between 0.0001 and 0.01. If not specified, the default is 0.0001. We recommend keeping this value between 0.0001 and 0.001.    This parameter isn\'t used when training a detection dataset.' }),
-    trainparams: flags.string({char: 'p', required: false, description: 'JSON that contains parameters that specify how the model is created. '})
+    trainparams: flags.string({char: 'p', required: false, description: 'JSON that contains parameters that specify how the model is created. '}),
+    clipboard: flags.boolean({ char: 'c', description: 'places the dataset retrain status command in your clipboard' })
   };
 
   protected static requiresUsername = false;
@@ -52,11 +53,16 @@ export default class RetrainLanguageDataSet extends SfdxCommand {
     const transport = new EAITransport();
 
     return transport.makeRequest({ form, path, method: 'POST' })
-    .then(data => {
+    .then(async data => {
       const responseMessage = messages.getMessage('commandSuccess', [ data.modelId ]);
       const nextCommand = `sfdx eai:language:datasets:train:status -i ${data.modelId}`;
       this.ux.styledObject(data, [ 'datasetId', 'modelId', 'name', 'status', 'progress', 'createdAt']);
-      this.ux.log(messages.getMessage('statusCommandPrompt', [ nextCommand ]));
+      if (this.flags.clipboard) {
+        this.ux.log(messages.getMessage('statusCommandPromptClipboard', [ nextCommand ]));
+        await write(nextCommand);
+      } else {
+        this.ux.log(messages.getMessage('statusCommandPrompt', [ nextCommand ]));
+      }
       return { message: responseMessage, data, nextCommand };
     });
 

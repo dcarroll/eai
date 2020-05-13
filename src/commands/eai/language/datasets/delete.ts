@@ -1,6 +1,7 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
+import { write } from 'clipboardy';
 import EAITransport from '../../../../utils/transport';
 
 Messages.importMessagesDirectory(__dirname);
@@ -20,7 +21,8 @@ export default class DeleteLanguageDataSet extends SfdxCommand {
   ];
 
   protected static flagsConfig = {
-    datasetid: flags.string({char: 'i', required: true, description: 'dataset id to retrieve, if not specified all datasets are retrieved' })
+    datasetid: flags.string({char: 'i', required: true, description: 'dataset id to retrieve, if not specified all datasets are retrieved' }),
+    clipboard: flags.boolean({ char: 'c', description: 'places the dataset delete status command in your clipboard'})
   };
 
   protected static requiresUsername = false;
@@ -35,12 +37,16 @@ export default class DeleteLanguageDataSet extends SfdxCommand {
     const transport = new EAITransport();
 
     return transport.makeRequest({ form: null, path, method: 'DELETE' })
-    .then(data => {
+    .then(async  data => {
       const responseMessage = messages.getMessage('commandSuccess', [ this.flags.datasetid ]);
       this.ux.log(responseMessage);
       const nextCommand = `sfdx eai:language:datasets:delete:status -i ${data.id}`;
-      const statusCommandPrompt = messages.getMessage('statusCommandPrompt', [ nextCommand ]);
-      this.ux.log(statusCommandPrompt);
+      if (this.flags.clipboard) {
+        this.ux.log(messages.getMessage('statusCommandPromptClipboard', [ nextCommand ]));
+        await write(nextCommand);
+      } else {
+        this.ux.log(messages.getMessage('statusCommandPrompt', [ nextCommand ]));
+      }
       return { message: responseMessage, data, nextCommand };
     });
 

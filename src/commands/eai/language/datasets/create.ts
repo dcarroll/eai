@@ -14,7 +14,6 @@ export default class CreateLanguageDataSet extends SfdxCommand {
 
   public static examples = [
   `$ sfdx eai:language:datasets:create --type text-intent --data /mylocaldatapath.csv
-  Oauth token obtained!
   `
   ];
 
