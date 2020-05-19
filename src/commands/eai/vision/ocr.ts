@@ -16,7 +16,14 @@ export default class VisionOCR extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:vision:ocr --modelid myOrg@example.com --samplelocation https://www.publicdomainpictures.net/pictures/240000/velka/emergency-evacuation-route-signpost.jpg
+  `$ sfdx eai:vision:ocr --modelid 'OCRModel' --samplelocation https://www.publicdomainpictures.net/pictures/240000/velka/emergency-evacuation-route-signpost.jpg
+
+Probability  Label       BB MinX  BB MinY  BB MaxX  BB MaxY
+───────────  ──────────  ───────  ───────  ───────  ───────
+0.99937266   ROUTE       582      685      1151     815
+0.99471515   EMERGENCY   361      208      1383     346
+0.99469215   EVACUATION  331      438      1401     570
+
   `
   ];
 
