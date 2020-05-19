@@ -16,8 +16,7 @@ export default class CreateVisionDataSet extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:datasets:vision:create --username myOrg@example.com --pemlocation secrets/einstein.pem
-  Oauth token obtained!
+  `$ sfdx eai:datasets:vision:create --name MyDataset --type image --path http://einstein.ai/images/mountainvsbeach.zip
   `
   ];
 
@@ -30,7 +29,7 @@ export default class CreateVisionDataSet extends SfdxCommand {
     language: flags.string({char: 'l', required: false, default: 'N/A', description: 'Dataset language. Optional. Default is N/A. Reserved for future use.' }),
     type: flags.string({char: 't', required: true, description: 'Type of dataset data. Valid values are image and image-multi-label. Available in Einstein Vision API version 2.0 and later.'}),
     path: flags.string({char: 'p', required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
-    data: flags.string({char: 'd', required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'})
+    data: flags.string({char: 'd', required: false, description: 'local path to the .zip file. The maximum .zip file size you can upload is 50 MB.'})
   };
 
   // Comment this out if your command does not require an org username
@@ -70,23 +69,6 @@ export default class CreateVisionDataSet extends SfdxCommand {
       console.log(JSON.stringify(data, null, 4));
       return data;
     });
-    /*return fetch(path, {
-            body: form,
-            headers: {
-              Authorization: 'Bearer ' + authtoken
-            },
-            method: 'POST'
-    }).then(res => {
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
-      this.ux.log('Successfully submitted dataset for creation');
-      return res.json().then(data => {
-        console.log(JSON.stringify(data, null, 4));
-        return data;
-      });
-    });*/
-
   }
 
   private validateCommand() {

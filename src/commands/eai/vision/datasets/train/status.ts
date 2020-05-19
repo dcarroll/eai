@@ -14,8 +14,7 @@ export default class VisionTrainingStatus extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
-  Oauth token obtained!
+  `$ sfdx eai:vision:datasets:train --modelid FTW2B7YSTZTALH7QTNM3A7DJEY
   `
   ];
 
@@ -23,7 +22,7 @@ export default class VisionTrainingStatus extends SfdxCommand {
 
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
-    trainrequestid: flags.string({char: 'i', required: true, description: 'dataset id to retrieve training status for' })
+    modelid: flags.string({char: 'i', required: true, description: 'dataset id to retrieve training status for' })
   };
 
   // Comment this out if your command does not require an org username
@@ -38,7 +37,7 @@ export default class VisionTrainingStatus extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
-    const path: string = (this.flags.deletrequestid) ? 'https://api.einstein.ai/v2/vision/train/' + this.flags.deletrequestid : 'https://api.einstein.ai/v2/vision/datasets/';
+    const path: string = 'https://api.einstein.ai/v2/vision/train/' + this.flags.modelid;
 
     const transport = new EAITransport();
 
@@ -46,8 +45,13 @@ export default class VisionTrainingStatus extends SfdxCommand {
     .then(data => {
       const responseMessage = 'Successfully retrieved training status';
       this.ux.log(responseMessage);
+      this.formatResults(data);
       return { message: responseMessage, data };
     });
-
   }
+
+  private formatResults(data) {
+    this.ux.styledObject(data, [ 'name', 'status', 'modelId', 'modelType', 'updatedAt']);
+  }
+
 }

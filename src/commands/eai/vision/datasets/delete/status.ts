@@ -14,8 +14,7 @@ export default class DeleteVisionDataSetStatus extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx eai:datasets:vision:get --username myOrg@example.com --pemlocation secrets/einstein.pem
-  Oauth token obtained!
+  `$ sfdx eai:vision:datasets:delete:status --deleterequestid RUAV4YTHOASZZH3VHJB3IROX3E
   `
   ];
 
@@ -23,7 +22,7 @@ export default class DeleteVisionDataSetStatus extends SfdxCommand {
 
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
-    deletrequestid: flags.string({char: 'i', required: true, description: 'dataset id to retrieve deletion status for' })
+    deleterequestid: flags.string({char: 'i', required: true, description: 'dataset id to retrieve deletion status for' })
   };
 
   // Comment this out if your command does not require an org username
@@ -38,16 +37,20 @@ export default class DeleteVisionDataSetStatus extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
-    const path: string = (this.flags.deletrequestid) ? 'https://api.einstein.ai/v2/vision/deletion/' + this.flags.deletrequestid : 'https://api.einstein.ai/v2/vision/datasets/';
+    const path: string = 'https://api.einstein.ai/v2/vision/deletion/' + this.flags.deleterequestid;
 
     const transport = new EAITransport();
 
     return transport.makeRequest({ form: null, path, method: 'GET' })
     .then(data => {
-      const responseMessage = 'Successfully dataset deletion status';
+      const responseMessage = messages.getMessage('commandSuccess');
       this.ux.log(responseMessage);
+      this.formatResults(data);
       return { message: responseMessage, data };
     });
+  }
 
+  private formatResults(data) {
+    this.ux.styledObject(data, [ 'id', 'type', 'status', 'deletedObjectId' ]);
   }
 }
