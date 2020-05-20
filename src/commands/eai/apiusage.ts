@@ -46,15 +46,17 @@ March/2020    April/2020  1990       10    2000
 
   private formatResults(data) {
     const opts: TableOptions = { columns: [
+      { key: 'OrganizationId', label: 'E.ai Org Id'},
+      { key: 'Id', label: 'Id' },
       { key: 'StartMonthYear', label: 'Period Start' },
       { key: 'EndMonthYear', label: 'Period End' },
       { key: 'PredictionsRemaining', label: 'Remaining' },
       { key: 'PredictionsUsed', label: 'Used' },
       { key: 'PredictionsMax', label: 'Maximum' }
     ]};
-    const mappedData: Array<{ StartMonthYear: string, EndMonthYear: string, PredictionsRemaining: number, PredictionsUsed: number, PredictionsMax: number }> = [];
+    const mappedData: Array<{ OrganizationId: number, Id: number, StartMonthYear: string, EndMonthYear: string, PredictionsRemaining: number, PredictionsUsed: number, PredictionsMax: number }> = [];
     data.data.forEach(row => {
-      mappedData.push({ StartMonthYear: this.shortMonthYear(new Date(row.startsAt)), EndMonthYear: this.shortMonthYear(new Date(row.endsAt)), PredictionsRemaining: row.predictionsRemaining, PredictionsUsed: row.predictionsUsed, PredictionsMax: row.predictionsMax });
+      mappedData.push({ OrganizationId: row.organizationId, Id: row.id, StartMonthYear: this.shortMonthYear(new Date(row.startsAt)), EndMonthYear: this.shortMonthYear(new Date(row.endsAt)), PredictionsRemaining: row.predictionsRemaining, PredictionsUsed: row.predictionsUsed, PredictionsMax: row.predictionsMax });
     });
     this.ux.table(mappedData, opts);
   }

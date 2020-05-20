@@ -7,6 +7,7 @@ import fetch = require('node-fetch');
 interface AuthToken {
     access_token: string;
     token_type: string;
+    refresh_token: string;
     expires_in: string;
     user_name: string;
 }
@@ -40,7 +41,7 @@ export default class EAIToken {
             { algorithm: 'RS256'}
         );
         return fetch('https://api.einstein.ai/v2/oauth2/token', {
-            body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${token}&scope:offline`,
+            body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${token}&scope=offline`,
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
             },

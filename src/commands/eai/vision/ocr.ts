@@ -32,11 +32,8 @@ Probability  Label       BB MinX  BB MinY  BB MaxX  BB MaxY
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
     modelid: flags.string({char: 'i', required: false, default: 'OCRModel', description: 'model id to make prediction against' }),
-    numresults: flags.integer({char: 'n', default: 2, required: false, description: 'Number of probabilities to return. Optional. If passed, must be a number greater than zero.' }),
-    samplebase64content: flags.string({char: 'b', exclusive: ['samplecontent', 'samplelocation'], required: false, description: 'The image contained in a base64 string' }),
-    sampleid: flags.string({char: 's', required: false, description: 'String that you can pass in to tag the prediction. Optional. Can be any value, and is returned in the response' }),
-    samplecontent: flags.string({char: 'c', exclusive: ['samplebase64content', 'samplelocation'], required: false, description: 'Binary content of image file' }),
-    samplelocation: flags.string({char: 'l', exclusive: ['samplebase64content', 'samplecontent'], required: true, description: 'URL of the image file' })
+    samplepath: flags.string({char: 'p', exclusive: ['samplebase64content', 'samplelocation'], required: false, description: 'Path to the image file' }),
+    samplelocation: flags.string({char: 'l', exclusive: ['samplebase64content', 'samplecontent'], required: false, description: 'URL of the image file' })
   };
 
   // Comment this out if your command does not require an org username
@@ -57,10 +54,9 @@ Probability  Label       BB MinX  BB MinY  BB MaxX  BB MaxY
 
     const form = new formData();
     form.append('modelId', this.flags.modelid);
-    form.append('numResults', this.flags.numresults);
-    if (this.flags.sampleid) form.append(this.flags.sampleid);
     if (this.flags.samplebase64content) form.append('sampleBase64Content', this.flags.samplebase64content);
-    if (this.flags.samplecontent) form.append('sampleContent', createReadStream(this.flags.samplecontent));
+    // if (this.flags.samplecontent) form.append('sampleContent', createReadStream(this.flags.samplecontent));
+    if (this.flags.samplepath) form.append('sampleContent', createReadStream(this.flags.samplecontent));
     if (this.flags.samplelocation) form.append('sampleLocation', this.flags.samplelocation);
 
     const transport = new EAITransport();

@@ -41,6 +41,7 @@ export default class Login extends SfdxCommand {
 
     econfig.set('username', this.flags.name);
     econfig.set('token', authtoken.access_token);
+    econfig.set('refreshtoken', authtoken.refresh_token);
     econfig.set('expiry', authtoken.expires_in);
     econfig.set('pemlocation', join(process.cwd(), this.flags.pemlocation));
     econfig.write();
