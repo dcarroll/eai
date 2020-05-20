@@ -36,7 +36,7 @@ export default class Login extends SfdxCommand {
   public async run(): Promise<AnyJson> {
     const PRIV_KEY = readFileSync(this.flags.pemlocation, 'utf8');
     const eaitoken = new EAIToken();
-    const authtoken = await eaitoken.getAccessToken(this.flags.name, this.flags.expiration, PRIV_KEY);
+    const authtoken = await eaitoken.getAccessTokenViaLogin(this.flags.name, this.flags.expiration, PRIV_KEY);
     const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
 
     econfig.set('username', this.flags.name);

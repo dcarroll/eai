@@ -37,6 +37,7 @@ March/2020    April/2020  1990       10    2000
 
     return transport.makeRequest({ form: null, path, method: 'GET' })
     .then(data => {
+      this.ux.log('In usage command');
       const responseMessage = '\n' + messages.getMessage('commandSuccess');
       this.ux.log(responseMessage);
       this.formatResults(data);

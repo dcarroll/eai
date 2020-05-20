@@ -1,8 +1,9 @@
 
 import { ConfigFile, SfdxError } from '@salesforce/core';
-import { readFileSync } from 'fs';
+// import { readFileSync } from 'fs';
 import jwt = require('jsonwebtoken');
 import fetch = require('node-fetch');
+import EAITransport from './transport';
 
 interface AuthToken {
     access_token: string;
@@ -16,8 +17,9 @@ export default class EAIToken {
     protected expiration = null;
     protected accessToken = null;
     protected username = null;
+    protected refreshToken = null;
 
-    public async getAccessToken(accountId: string, ttl: number, privateKey: string): Promise<AuthToken> {
+    public async getAccessTokenViaLogin(accountId: string, ttl: number, privateKey: string): Promise<AuthToken> {
         if (!accountId || !privateKey) {
             throw new Error('please provice accountId AND privateKey');
         }
@@ -70,12 +72,23 @@ export default class EAIToken {
         if (!econfig.exists) {
             throw new SfdxError('You need to run login before running other commands');
         } else {
-            const name = econfig.get('username');
-            const expiry = econfig.get('expiry');
-            const PRIV_KEY = readFileSync(econfig.get('pemlocation').toString(), 'utf8');
+            // const name = econfig.get('username');
+            // const expiry = econfig.get('expiry');
+            // const PRIV_KEY = readFileSync(econfig.get('pemlocation').toString(), 'utf8');
             const eaitoken = new EAIToken();
-            return eaitoken.getAccessToken(name.toString(), expiry as number, PRIV_KEY);
+            return eaitoken.getAccessTokenViaRefreshToken(econfig);
         }
+    }
+
+    public async getAccessTokenViaRefreshToken(config: ConfigFile<object>) {
+
+        console.log('In getAccessTokenViaRefreshToken');
+        const token = config.getContents();
+        const transport = new EAITransport();
+        const form = 'grant_type=refresh_token&refresh_token=' + token.refreshtoken + '&valid_for=30000';
+        const path = 'https://api.einstein.ai/v2/oauth2/token/';
+        console.log('Returning data from getAccessTokenViaRefreshToken');
+        return transport.makeRefreshTokenRequest({ form, path, method: 'POST' });
     }
 
 }
