@@ -39,10 +39,7 @@ export default class Login extends SfdxCommand {
     const authtoken = await eaitoken.getAccessTokenViaLogin(this.flags.name, this.flags.expiration, PRIV_KEY);
     const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
 
-    econfig.set('username', this.flags.name);
-    econfig.set('token', authtoken.access_token);
-    econfig.set('refreshtoken', authtoken.refresh_token);
-    econfig.set('expiry', authtoken.expires_in);
+    econfig.setContentsFromObject(authtoken);
     econfig.set('pemlocation', join(process.cwd(), this.flags.pemlocation));
     econfig.write();
 

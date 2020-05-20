@@ -11,13 +11,15 @@ interface AuthToken {
     refresh_token: string;
     expires_in: string;
     user_name: string;
+    pemlocation: string;
 }
 export default class EAIToken {
 
+    // protected accessToken = null;
+    //  protected username = null;
+    // protected refreshToken = null;
+    public token: AuthToken;
     protected expiration = null;
-    protected accessToken = null;
-    protected username = null;
-    protected refreshToken = null;
 
     public async getAccessTokenViaLogin(accountId: string, ttl: number, privateKey: string): Promise<AuthToken> {
         if (!accountId || !privateKey) {
@@ -27,9 +29,9 @@ export default class EAIToken {
         if (
             this.expiration !== null &&
             this.expiration > halfLife &&
-            this.accessToken !== null
+            this.token !== null
         ) {
-            return this.accessToken;
+            return this.token;
         }
         const payloadExpiration = (Date.now() / 1000) + (ttl * 60);
         const payload = {
@@ -58,37 +60,44 @@ export default class EAIToken {
 
         }).then(accessToken => {
 
-            const tok =  accessToken as AuthToken;
-            tok.user_name = accountId;
-            return tok;
+            this.token = accessToken as AuthToken;
+            this.token.user_name = accountId;
+            return this.token;
 
         }).catch(err => {
             console.error(err);
         });
     }
 
-    public async getConfigToken() {
-        const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
-        if (!econfig.exists) {
-            throw new SfdxError('You need to run login before running other commands');
-        } else {
-            // const name = econfig.get('username');
-            // const expiry = econfig.get('expiry');
-            // const PRIV_KEY = readFileSync(econfig.get('pemlocation').toString(), 'utf8');
-            const eaitoken = new EAIToken();
-            return eaitoken.getAccessTokenViaRefreshToken(econfig);
-        }
+    public async getConfigToken(): Promise<AuthToken> {
+        return this.getConfigFile()
+        .then(cfile => {
+            return this.convertConfigToToken(cfile as ConfigFile<object>);
+        });
     }
 
-    public async getAccessTokenViaRefreshToken(config: ConfigFile<object>) {
-
+    public async getAccessTokenViaRefreshToken() {
         console.log('In getAccessTokenViaRefreshToken');
-        const token = config.getContents();
+        const token = this.getConfigToken();
         const transport = new EAITransport();
-        const form = 'grant_type=refresh_token&refresh_token=' + token.refreshtoken + '&valid_for=30000';
+        const form = 'grant_type=refresh_token&refresh_token=' + (await token).refresh_token + '&valid_for=30000';
         const path = 'https://api.einstein.ai/v2/oauth2/token/';
         console.log('Returning data from getAccessTokenViaRefreshToken');
         return transport.makeRefreshTokenRequest({ form, path, method: 'POST' });
+    }
+
+    public async convertConfigToToken(config: ConfigFile<object>): Promise<AuthToken> {
+        const contents = config.getContents();
+        const authToken: AuthToken = { pemlocation: contents.pemlocation as string, access_token: contents.access_token as string, expires_in: contents.expires_in as string, refresh_token: contents.refresh_token as string, user_name: contents.user_name as string, token_type: contents.token_type as string };
+        return authToken;
+    }
+
+    private async getConfigFile(): Promise<ConfigFile<object>> {
+        const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
+        if (!econfig.exists) {
+            throw new SfdxError('You need to run login before running other commands');
+        }
+        return econfig;
     }
 
 }
