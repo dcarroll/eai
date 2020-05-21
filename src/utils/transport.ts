@@ -9,10 +9,22 @@ export default class EAITransport {
     protected expiration = null;
     protected accessToken = null;
     protected eaiToken: EAIToken = new EAIToken();
+    protected retryCount = 0;
 
     public async makeRequest(requestData) {
         console.log('In makeRequest');
-        return this.eaiToken.getConfigToken()
+        const result = await(this.doRequest(requestData));
+        if (result.retry) {
+            await this.eaiToken.getAccessTokenViaRefreshToken();
+            return this.doRequest(requestData);
+        } else {
+            return result;
+        }
+    }
+
+    public async doRequest(requestData) {
+        console.log('In doRequest');
+        return this.eaiToken.getAuthToken()
             .then(authtoken => {
                 return fetch(requestData.path, {
                     body: requestData.form,
@@ -22,11 +34,18 @@ export default class EAITransport {
                     method: requestData.method
                 }).then(async res => {
                     if (!res.ok) {
-                        debugger;
+                        // debugger;
                         if (res.status === 401) {
-                            // This is the case where we can try to get a new access token via refresh token
-                            await this.eaiToken.getAccessTokenViaRefreshToken();
-                            this.makeRefreshTokenRequest(requestData);
+                            if (this.retryCount < 1) {
+                                this.retryCount++;
+                                // This is the case where we can try to get a new access token via refresh token
+                                // await this.eaiToken.getAccessTokenViaRefreshToken();
+                                console.log('Bad token, retry the request and fetch a new access token');
+                                return { retry: true };
+                                // return await this.makeRequest(requestData);
+                            } else {
+                                throw new SfdxError(JSON.parse(res.body.read().toString()).message);
+                            }
                         } else {
                             throw new SfdxError(JSON.parse(res.body.read().toString()).message);
                         }
@@ -60,6 +79,7 @@ export default class EAITransport {
             } else {
                 return res.json().then(data => {
                     console.log('Got access token...' + '\n' + JSON.stringify(data, null, 4));
+                    this.eaiToken.updateTokenConfig(data);
                     return data;
                 });
             }

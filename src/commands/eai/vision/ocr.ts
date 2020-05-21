@@ -32,8 +32,8 @@ Probability  Label       BB MinX  BB MinY  BB MaxX  BB MaxY
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
     modelid: flags.string({char: 'i', required: false, default: 'OCRModel', description: 'model id to make prediction against' }),
-    samplepath: flags.string({char: 'p', exclusive: ['samplebase64content', 'samplelocation'], required: false, description: 'Path to the image file' }),
-    samplelocation: flags.string({char: 'l', exclusive: ['samplebase64content', 'samplecontent'], required: false, description: 'URL of the image file' })
+    samplecontent: flags.string({char: 'c', exclusive: ['samplelocation'], required: false, description: 'Path to the image file' }),
+    samplelocation: flags.string({char: 'l', exclusive: ['samplecontent'], required: false, description: 'URL of the image file' })
   };
 
   // Comment this out if your command does not require an org username
@@ -56,7 +56,7 @@ Probability  Label       BB MinX  BB MinY  BB MaxX  BB MaxY
     form.append('modelId', this.flags.modelid);
     if (this.flags.samplebase64content) form.append('sampleBase64Content', this.flags.samplebase64content);
     // if (this.flags.samplecontent) form.append('sampleContent', createReadStream(this.flags.samplecontent));
-    if (this.flags.samplepath) form.append('sampleContent', createReadStream(this.flags.samplecontent));
+    if (this.flags.samplecontent) form.append('sampleContent', createReadStream(this.flags.samplecontent));
     if (this.flags.samplelocation) form.append('sampleLocation', this.flags.samplelocation);
 
     const transport = new EAITransport();
