@@ -35,7 +35,6 @@ March/2020    April/2020  1990       10    2000
     const path: string = 'https://api.einstein.ai/v2/apiusage';
     const transport = new EAITransport();
 
-    this.ux.log('In usage command');
     return transport.makeRequest({ form: null, path, method: 'GET' })
     .then(data => {
       const responseMessage = '\n' + messages.getMessage('commandSuccess');
