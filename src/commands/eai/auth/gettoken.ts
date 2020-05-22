@@ -29,7 +29,7 @@ export default class GetToken extends SfdxCommand {
 
   public async run(): Promise<AnyJson> {
     const eaitoken = new EAIToken();
-    const configToken = await eaitoken.getConfigToken();
+    const configToken = await eaitoken.getAuthToken();
     if (this.flags.toclipboard) {
       await write(configToken.access_token);
       this.ux.log('Token has been placed in your clipboard.');

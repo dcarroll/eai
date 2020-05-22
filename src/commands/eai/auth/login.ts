@@ -1,8 +1,6 @@
 import { flags, SfdxCommand } from '@salesforce/command';
-import { ConfigFile, Messages } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 import EAIToken from '../../../utils/token';
 
 // Initialize Messages with the current plugin directory
@@ -34,19 +32,17 @@ export default class Login extends SfdxCommand {
   protected sfEinstein = require('sf-einstein');
 
   public async run(): Promise<AnyJson> {
-    const PRIV_KEY = readFileSync(this.flags.pemlocation, 'utf8');
     const eaitoken = new EAIToken();
-    const authtoken = await eaitoken.getAccessToken(this.flags.name, this.flags.expiration, PRIV_KEY);
-    const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
+    return eaitoken.getAccessTokenViaLogin(this.flags.name, this.flags.expiration, this.flags.pemlocation)
+    .then(authtoken => {
+      this.ux.log(messages.getMessage('commandSuccess', [ this.flags.name ]));
+      return { username: this.flags.name, message: messages.getMessage('commandSuccess', [ this.flags.name ]) };
+    });
+    /* const econfig = await ConfigFile.create({ isGlobal: true, filename: 'einstein.json' });
 
-    econfig.set('username', this.flags.name);
-    econfig.set('token', authtoken.access_token);
-    econfig.set('refreshtoken', authtoken.refresh_token);
-    econfig.set('expiry', authtoken.expires_in);
+    econfig.setContentsFromObject(authtoken);
     econfig.set('pemlocation', join(process.cwd(), this.flags.pemlocation));
-    econfig.write();
+    econfig.write();*/
 
-    this.ux.log(messages.getMessage('commandSuccess', [ this.flags.name ]));
-    return { username: this.flags.name, message: messages.getMessage('commandSuccess', [ this.flags.name ]) };
   }
 }

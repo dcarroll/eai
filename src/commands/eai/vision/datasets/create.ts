@@ -66,7 +66,6 @@ export default class CreateVisionDataSet extends SfdxCommand {
 
     return transport.makeRequest({ form, path, method: 'POST' })
     .then(data => {
-      console.log(JSON.stringify(data, null, 4));
       return data;
     });
   }
