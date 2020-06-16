@@ -1,7 +1,7 @@
 {
     "name": "eaidc",
     "description": "Einstein.ai plugin",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Dave Carroll @djcarroll",
     "bugs": "https://github.com/dcarroll/eai/issues",
     "dependencies": {
@@ -17,7 +17,6 @@
         "fetch": "^1.1.0",
         "form-data": "^3.0.0",
         "jsonwebtoken": "^8.5.1",
-        "node-fetch": "^2.6.0",
         "sf-einstein": "^0.0.10",
         "tslib": "^1",
         "yarn": "^1.22.4"

@@ -122,15 +122,15 @@ export default class EAIToken {
         this._token.expires_in = data.expires_in;
         this._token.token_type = data.token_type;
         return this.writeTokenInfo(this._token)
-        .then(tinfo => {
+       .then(tinfo => {
             return tinfo;
         });
     }
 
     private async getConfigFile(): Promise<ConfigFile<object>> {
         return ConfigFile.create({ isGlobal: true, filename: 'einstein.json' })
-        .then(econfig => {
-            if (!econfig.exists) {
+        .then(async econfig => {
+            if (!await econfig.exists()) {
                 throw new SfdxError('You need to run login before running other commands');
             } else {
                 return econfig;

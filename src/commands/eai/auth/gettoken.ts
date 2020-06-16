@@ -30,12 +30,16 @@ export default class GetToken extends SfdxCommand {
   public async run(): Promise<AnyJson> {
     const eaitoken = new EAIToken();
     const configToken = await eaitoken.getAuthToken();
-    if (this.flags.toclipboard) {
-      await write(configToken.access_token);
-      this.ux.log('Token has been placed in your clipboard.');
-    } else {
-      this.ux.log('Retrieved token for ' + configToken.user_name + '\n' + configToken.access_token);
-      return { username: configToken.user_name, token: configToken.access_token };
-    }
+    return eaitoken.getAccessTokenViaRefreshToken()
+    .then(async token => {
+      if (this.flags.toclipboard) {
+        await write(configToken.access_token);
+        this.ux.log('Token has been placed in your clipboard.');
+        return { username: configToken.user_name, token: configToken.access_token };
+      } else {
+        this.ux.log('Retrieved token for ' + configToken.user_name + '\n' + configToken.access_token);
+        return { username: configToken.user_name, token: configToken.access_token };
+      }
+    });
   }
 }

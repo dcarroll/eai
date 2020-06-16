@@ -31,15 +31,20 @@ export default class EAITransport {
                         method: requestData.method
                     }).then(async res => {
                         if (!res.ok) {
-                            // debugger;
-                        throw new SfdxError(JSON.parse(res.body.toString()).message);
+                            if (res.status === 504) {
+                                throw new SfdxError(res.statusText);
+                            } else {
+                                return res.json().then(data => {
+                                    throw new SfdxError(JSON.parse(data.message).message);
+                                });
+                            }
                         } else {
                             return res.json().then(data => {
                                 return data;
                             });
                         }
                     });
-                    });
+                });
             });
     }
 

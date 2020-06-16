@@ -1,7 +1,7 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
-
+import { write } from 'clipboardy';
 import EAITransport from '../../../../utils/transport';
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
@@ -24,11 +24,13 @@ export default class TrainVisionDataSet extends SfdxCommand {
 
   protected static flagsConfig = {
     // flag with a value (-n, --name=VALUE)
-    datasetid: flags.string({char: 'i', required: true, description: 'Id of the dataset to be trained' }),
-    epochs: flags.integer({char: 'e', required: false, description: 'Number of training iterations for the neural network. Optional. Valid values are 1–1,000.' }),
-    learningrate: flags.number({char: 'r', required: false, description: 'Specifies how much the gradient affects the optimization of the model at each time step. Optional. Use this parameter to tune your model. Valid values are between 0.0001 and 0.01. If not specified, the default is 0.0001. We recommend keeping this value between 0.0001 and 0.001.    This parameter isn\'t used when training a detection dataset.' }),
-    name: flags.string({char: 'n', required: true, description: 'Name of the model. Maximum length is 180 characters'}),
-    trainparams: flags.string({char: 'p', required: false, description: 'JSON that contains parameters that specify how the model is created. '})
+    algorithm: flags.string({ char: 'a', required: false, default: 'object-detection-v1', description: 'Specifies the algorithm used to train the dataset. Optional. Use this parameter only when training a dataset with a type of image-detection. Valid values are \'object-detection-v1\' (default) and \'retail-execution\'' }),
+    datasetid: flags.string({char: 'i', required: true, description: messages.getMessage('datasetIdFlagDescription') }),
+    epochs: flags.integer({char: 'e', required: false, description: messages.getMessage('epochsFlagDescription') }),
+    learningrate: flags.number({char: 'r', required: false, description: messages.getMessage('learningRateFlagDescription') }),
+    name: flags.string({char: 'n', required: true, description: messages.getMessage('nameFlagDescription') }),
+    trainparams: flags.string({char: 'p', required: false, description: messages.getMessage('trainParamsFlagDescription') }),
+    clipboard: flags.boolean({ char: 'c', description: 'places the dataset:train:status command in your clipboard' })
   };
 
   // Comment this out if your command does not require an org username
@@ -50,6 +52,7 @@ export default class TrainVisionDataSet extends SfdxCommand {
     const form = new formData();
     form.append('datasetId', this.flags.datasetid);
     if (this.flags.epoches) form.append('epochs', this.flags.epochs);
+    if (this.flags.algorithm) form.append('algorithm', this.flags.algorithm);
     if (this.flags.learningrate) form.append('learningRate', this.flags.learningrate);
     form.append('name', this.flags.name);
     if (this.flags.trainparams) form.append('trainParams', this.flags.trainparams);
@@ -57,9 +60,18 @@ export default class TrainVisionDataSet extends SfdxCommand {
     const transport = new EAITransport();
 
     return transport.makeRequest({ form, path, method: 'POST' })
-    .then(data => {
-      const responseMessage = 'Successfully retrieved prediction';
+    .then(async data => {
+      const responseMessage = messages.getMessage('commandSuccess', [ data.datasetId, data.status ]);
       this.ux.log(responseMessage);
+      const nextCommand = `sfdx eai:language:datasets:train:status -i ${data.modelId}`;
+      if (this.flags.clipboard) {
+        this.ux.log(messages.getMessage('statusCommandPromptClipboard', [ nextCommand ]));
+        await write(nextCommand);
+      } else {
+        this.ux.log(messages.getMessage('statusCommandPrompt', [ nextCommand ]));
+      }
+      return { message: responseMessage, data, nextCommand };
+
       return { message: responseMessage, data };
     });
 

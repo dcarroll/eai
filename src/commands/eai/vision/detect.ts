@@ -53,7 +53,6 @@ export default class VisionDetect extends SfdxCommand {
     form.append('modelId', this.flags.modelid);
     form.append('numResults', this.flags.numresults);
     if (this.flags.sampleid) form.append(this.flags.sampleid);
-    if (this.flags.samplebase64content) form.append('sampleBase64Content', this.flags.samplebase64content);
     if (this.flags.samplecontent) form.append('sampleContent', createReadStream(this.flags.samplecontent));
     if (this.flags.samplelocation) form.append('sampleLocation', this.flags.samplelocation);
 

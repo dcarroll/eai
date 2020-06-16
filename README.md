@@ -22,7 +22,7 @@ $ npm install -g eaidc
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-eaidc/1.0.1 darwin-x64 node-v13.12.0
+eaidc/1.0.2 darwin-x64 node-v10.15.3
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
@@ -53,7 +53,7 @@ USAGE
 * [`sfdx eai:vision:datasets:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetsdelete--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets:delete:status -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetsdeletestatus--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets:retrain -i <string> [-e <integer>] [-r <number>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetsretrain--i-string--e-integer--r-number--p-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-* [`sfdx eai:vision:datasets:train -i <string> -n <string> [-e <integer>] [-r <number>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetstrain--i-string--n-string--e-integer--r-number--p-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx eai:vision:datasets:train -i <string> -n <string> [-a <string>] [-e <integer>] [-r <number>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetstrain--i-string--n-string--a-string--e-integer--r-number--p-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:datasets:train:status -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondatasetstrainstatus--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:detect -i <string> [-n <integer>] [-s <string>] [-c <string> | -l <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisiondetect--i-string--n-integer--s-string--c-string---l-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx eai:vision:models -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-eaivisionmodels--i-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
@@ -86,7 +86,7 @@ EXAMPLE
   March/2020    April/2020  1990       10    2000
 ```
 
-_See code: [lib/commands/eai/apiusage.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/apiusage.js)_
+_See code: [lib/commands/eai/apiusage.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/apiusage.js)_
 
 ## `sfdx eai:auth:gettoken [-c] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -109,7 +109,7 @@ EXAMPLE
      Successfully obtained auth token
 ```
 
-_See code: [lib/commands/eai/auth/gettoken.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/auth/gettoken.js)_
+_See code: [lib/commands/eai/auth/gettoken.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/auth/gettoken.js)_
 
 ## `sfdx eai:auth:login -n <string> -f <string> [-e <number>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -143,7 +143,7 @@ EXAMPLE
      Successfully obtained auth token for name@company.com
 ```
 
-_See code: [lib/commands/eai/auth/login.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/auth/login.js)_
+_See code: [lib/commands/eai/auth/login.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/auth/login.js)_
 
 ## `sfdx eai:language:datasets [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -173,7 +173,7 @@ EXAMPLE
   1xx1357  weather.csv  5/11/2020, 3:47:28 PM  5/11/2020, 3:47:28 PM  text-intent  73        3       SUCCEEDED
 ```
 
-_See code: [lib/commands/eai/language/datasets.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/datasets.js)_
+_See code: [lib/commands/eai/language/datasets.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/datasets.js)_
 
 ## `sfdx eai:language:datasets:create -t <string> [-d <string> | -p <string>] [-l <string>] [-n <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -215,7 +215,7 @@ EXAMPLE
   $ sfdx eai:language:datasets:create --type text-intent --data /mylocaldatapath.csv
 ```
 
-_See code: [lib/commands/eai/language/datasets/create.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/datasets/create.js)_
+_See code: [lib/commands/eai/language/datasets/create.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/datasets/create.js)_
 
 ## `sfdx eai:language:datasets:delete -i <string> [-c] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -246,7 +246,7 @@ EXAMPLE
      sfdx eai.language:datasets:delete:status --datsetid 123345
 ```
 
-_See code: [lib/commands/eai/language/datasets/delete.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/datasets/delete.js)_
+_See code: [lib/commands/eai/language/datasets/delete.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/datasets/delete.js)_
 
 ## `sfdx eai:language:datasets:delete:status -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -275,7 +275,7 @@ EXAMPLE
      deletedObjectId: 1186961
 ```
 
-_See code: [lib/commands/eai/language/datasets/delete/status.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/datasets/delete/status.js)_
+_See code: [lib/commands/eai/language/datasets/delete/status.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/datasets/delete/status.js)_
 
 ## `sfdx eai:language:datasets:retrain -i <string> [-e <integer>] [-r <number>] [-p <string>] [-c] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -324,7 +324,7 @@ EXAMPLE
      sfdx eai:language:datasets:train:status -i HQSIQO6FMPTONEJ6R3T6LE2TAI
 ```
 
-_See code: [lib/commands/eai/language/datasets/retrain.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/datasets/retrain.js)_
+_See code: [lib/commands/eai/language/datasets/retrain.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/datasets/retrain.js)_
 
 ## `sfdx eai:language:datasets:train -i <string> -n <string> [-e <integer>] [-r <number>] [-p <string>] [-c] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -370,7 +370,7 @@ EXAMPLE
        sfdx eai:language:datasets:train:status -i HQSIQO6FMPTONEJ6R3T6LE2TAI
 ```
 
-_See code: [lib/commands/eai/language/datasets/train.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/datasets/train.js)_
+_See code: [lib/commands/eai/language/datasets/train.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/datasets/train.js)_
 
 ## `sfdx eai:language:datasets:train:status -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -400,7 +400,7 @@ EXAMPLE
      updatedAt:        2020-04-05T21:20:10.000+0000
 ```
 
-_See code: [lib/commands/eai/language/datasets/train/status.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/datasets/train/status.js)_
+_See code: [lib/commands/eai/language/datasets/train/status.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/datasets/train/status.js)_
 
 ## `sfdx eai:language:examples [-i <string> | -l <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -429,7 +429,7 @@ EXAMPLE
   $ sfdx eai:language:datasets:examples --datasetid 3454453
 ```
 
-_See code: [lib/commands/eai/language/examples.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/examples.js)_
+_See code: [lib/commands/eai/language/examples.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/examples.js)_
 
 ## `sfdx eai:language:examples:create -i <string> [-d <string> | -p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -461,7 +461,7 @@ EXAMPLE
   $ sfdx eai:language:examples:create --datasetid 1187600 --path =http://einstein.ai/text/weather_update.csv
 ```
 
-_See code: [lib/commands/eai/language/examples/create.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/examples/create.js)_
+_See code: [lib/commands/eai/language/examples/create.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/examples/create.js)_
 
 ## `sfdx eai:language:feedback:create -d <string> -l <string> -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -493,7 +493,7 @@ EXAMPLE
   "current-weather"
 ```
 
-_See code: [lib/commands/eai/language/feedback/create.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/feedback/create.js)_
+_See code: [lib/commands/eai/language/feedback/create.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/feedback/create.js)_
 
 ## `sfdx eai:language:intent -i <string> -d <string> [-n <integer>] [-s <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -529,7 +529,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/language/intent.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/intent.js)_
+_See code: [lib/commands/eai/language/intent.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/intent.js)_
 
 ## `sfdx eai:language:models -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -553,7 +553,7 @@ EXAMPLE
   $ sfdx eai:language:models --datasetid 13414123
 ```
 
-_See code: [lib/commands/eai/language/models.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/models.js)_
+_See code: [lib/commands/eai/language/models.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/models.js)_
 
 ## `sfdx eai:language:models:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -575,7 +575,7 @@ EXAMPLE
   $ sfdx eai:language:models:delete --modelid 4ZZEIOI4FXFWSTEYVFLZXEMOFU
 ```
 
-_See code: [lib/commands/eai/language/models/delete.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/models/delete.js)_
+_See code: [lib/commands/eai/language/models/delete.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/models/delete.js)_
 
 ## `sfdx eai:language:models:metrics [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -599,7 +599,7 @@ EXAMPLE
   $ sfdx eai:language:models:metrics --modelid  4ZZEIOI4FXFWSTEYVFLZXEMOFU
 ```
 
-_See code: [lib/commands/eai/language/models/metrics.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/models/metrics.js)_
+_See code: [lib/commands/eai/language/models/metrics.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/models/metrics.js)_
 
 ## `sfdx eai:language:sentiment -i <string> -d <string> [-n <integer>] [-s <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -635,7 +635,7 @@ EXAMPLE
   $ sfdx eai:language:sentiment --modelid I3JZ7A5UJRRKU7EZGXZQLKEUZI --document "I can't tell you how much fun it was"
 ```
 
-_See code: [lib/commands/eai/language/sentiment.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/language/sentiment.js)_
+_See code: [lib/commands/eai/language/sentiment.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/language/sentiment.js)_
 
 ## `sfdx eai:vision:datasets [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -660,7 +660,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/datasets.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/datasets.js)_
+_See code: [lib/commands/eai/vision/datasets.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/datasets.js)_
 
 ## `sfdx eai:vision:datasets:create -n <string> -t <string> [-b <string>] [-l <string>] [-p <string>] [-d <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -706,7 +706,7 @@ EXAMPLE
   $ sfdx eai:datasets:vision:create --name MyDataset --type image --path http://einstein.ai/images/mountainvsbeach.zip
 ```
 
-_See code: [lib/commands/eai/vision/datasets/create.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/datasets/create.js)_
+_See code: [lib/commands/eai/vision/datasets/create.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/datasets/create.js)_
 
 ## `sfdx eai:vision:datasets:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -732,7 +732,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/datasets/delete.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/datasets/delete.js)_
+_See code: [lib/commands/eai/vision/datasets/delete.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/datasets/delete.js)_
 
 ## `sfdx eai:vision:datasets:delete:status -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -756,7 +756,7 @@ EXAMPLE
   $ sfdx eai:vision:datasets:delete:status --deleterequestid RUAV4YTHOASZZH3VHJB3IROX3E
 ```
 
-_See code: [lib/commands/eai/vision/datasets/delete/status.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/datasets/delete/status.js)_
+_See code: [lib/commands/eai/vision/datasets/delete/status.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/datasets/delete/status.js)_
 
 ## `sfdx eai:vision:datasets:retrain -i <string> [-e <integer>] [-r <number>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -794,18 +794,23 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/datasets/retrain.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/datasets/retrain.js)_
+_See code: [lib/commands/eai/vision/datasets/retrain.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/datasets/retrain.js)_
 
-## `sfdx eai:vision:datasets:train -i <string> -n <string> [-e <integer>] [-r <number>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx eai:vision:datasets:train -i <string> -n <string> [-a <string>] [-e <integer>] [-r <number>] [-p <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 request that a dataset begin a trainging run
 
 ```
 USAGE
-  $ sfdx eai:vision:datasets:train -i <string> -n <string> [-e <integer>] [-r <number>] [-p <string>] [--json] 
-  [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+  $ sfdx eai:vision:datasets:train -i <string> -n <string> [-a <string>] [-e <integer>] [-r <number>] [-p <string>] 
+  [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
+  -a, --algorithm=algorithm
+      [default: object-detection-v1] Specifies the algorithm used to train the dataset. Optional. Use this parameter only 
+      when training a dataset with a type of image-detection. Valid values are 'object-detection-v1' (default) and 
+      'retail-execution'
+
   -e, --epochs=epochs
       Number of training iterations for the neural network. Optional. Valid values are 1–1,000.
 
@@ -835,7 +840,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/datasets/train.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/datasets/train.js)_
+_See code: [lib/commands/eai/vision/datasets/train.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/datasets/train.js)_
 
 ## `sfdx eai:vision:datasets:train:status -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -859,7 +864,7 @@ EXAMPLE
   $ sfdx eai:vision:datasets:train --modelid FTW2B7YSTZTALH7QTNM3A7DJEY
 ```
 
-_See code: [lib/commands/eai/vision/datasets/train/status.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/datasets/train/status.js)_
+_See code: [lib/commands/eai/vision/datasets/train/status.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/datasets/train/status.js)_
 
 ## `sfdx eai:vision:detect -i <string> [-n <integer>] [-s <string>] [-c <string> | -l <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -897,7 +902,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/detect.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/detect.js)_
+_See code: [lib/commands/eai/vision/detect.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/detect.js)_
 
 ## `sfdx eai:vision:models -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -922,7 +927,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/models.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/models.js)_
+_See code: [lib/commands/eai/vision/models.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/models.js)_
 
 ## `sfdx eai:vision:models:delete -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -945,7 +950,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/models/delete.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/models/delete.js)_
+_See code: [lib/commands/eai/vision/models/delete.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/models/delete.js)_
 
 ## `sfdx eai:vision:models:learningcurve -i <string> [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -971,7 +976,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/models/learningcurve.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/models/learningcurve.js)_
+_See code: [lib/commands/eai/vision/models/learningcurve.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/models/learningcurve.js)_
 
 ## `sfdx eai:vision:models:metrics [-i <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -996,7 +1001,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/models/metrics.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/models/metrics.js)_
+_See code: [lib/commands/eai/vision/models/metrics.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/models/metrics.js)_
 
 ## `sfdx eai:vision:ocr [-i <string>] [-c <string> | -l <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -1031,7 +1036,7 @@ EXAMPLE
   0.99469215   EVACUATION  331      438      1401     570
 ```
 
-_See code: [lib/commands/eai/vision/ocr.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/ocr.js)_
+_See code: [lib/commands/eai/vision/ocr.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/ocr.js)_
 
 ## `sfdx eai:vision:predict -i <string> [-n <integer>] [-b <string> | -c <string> | -l <string>] [-s <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -1072,7 +1077,7 @@ EXAMPLE
      Oauth token obtained!
 ```
 
-_See code: [lib/commands/eai/vision/predict.js](https://github.com/dcarroll/eai/blob/v1.0.1/lib/commands/eai/vision/predict.js)_
+_See code: [lib/commands/eai/vision/predict.js](https://github.com/dcarroll/eai/blob/v1.0.2/lib/commands/eai/vision/predict.js)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin
