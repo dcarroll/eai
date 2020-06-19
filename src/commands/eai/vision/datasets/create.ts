@@ -1,4 +1,4 @@
-import { flags, SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand, TableOptions } from '@salesforce/command';
 import { Messages, SfdxError } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { createReadStream } from 'fs';
@@ -28,8 +28,8 @@ export default class CreateVisionDataSet extends SfdxCommand {
     name: flags.string({char: 'n', required: true, description: 'Name of the dataset. Maximum length is 180 characters.' }),
     language: flags.string({char: 'l', required: false, default: 'N/A', description: 'Dataset language. Optional. Default is N/A. Reserved for future use.' }),
     type: flags.string({char: 't', required: true, description: 'Type of dataset data. Valid values are image and image-multi-label. Available in Einstein Vision API version 2.0 and later.'}),
-    path: flags.string({char: 'p', required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
-    data: flags.string({char: 'd', required: false, description: 'local path to the .zip file. The maximum .zip file size you can upload is 50 MB.'})
+    path: flags.string({char: 'p', exclusive: [ 'data' ], required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
+    data: flags.string({char: 'd', exclusive: [ 'path' ], required: false, description: 'local path to the .zip file. The maximum .zip file size you can upload is 50 MB.'})
   };
 
   // Comment this out if your command does not require an org username
@@ -66,7 +66,12 @@ export default class CreateVisionDataSet extends SfdxCommand {
 
     return transport.makeRequest({ form, path, method: 'POST' })
     .then(data => {
-      return data;
+      const responseMessage = messages.getMessage('commandSuccess', [ data.id ]);
+      this.ux.log(responseMessage);
+      this.ux.styledObject(data, [ 'id', 'name', 'totalExamples', 'totalLabels', 'type']);
+      this.ux.log('\nLabel Summary');
+      this.formatResultsLabels(data);
+      return { message: responseMessage, data };
     });
   }
 
@@ -78,4 +83,29 @@ export default class CreateVisionDataSet extends SfdxCommand {
       throw new SfdxError('the dataset type image-detection is not allowed unless using "path" or "data"');
     }
   }
+
+  private formatResultsLabels(data) {
+    const opts: TableOptions = { columns: [
+      { key: 'LabelId', label: 'Label Id' },
+      { key: 'DatasetId', label: 'Dataset Id' },
+      { key: 'Name', label: 'Name' },
+      { key: 'NumExamples', label: 'Num Examples' }
+    ]};
+    const mappedData: Array<{
+      LabelId: string,
+      DatasetId: string,
+      Name: string,
+      NumExamples: number
+    }> = [];
+    data.labelSummary.labels.forEach(row => {
+      mappedData.push({
+          LabelId: row.id,
+          DatasetId: row.datasetId,
+          Name: row.name,
+          NumExamples: row.numExamples
+        });
+    });
+    this.ux.table(mappedData, opts);
+  }
+
 }

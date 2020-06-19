@@ -11,3 +11,4 @@ read
 
 sfdx eai:language:models:delete -i $MODELID
 sfdx eai:language:datasets:delete -i $DSID
+

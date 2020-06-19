@@ -70,11 +70,15 @@ export default class TrainVisionDataSet extends SfdxCommand {
       } else {
         this.ux.log(messages.getMessage('statusCommandPrompt', [ nextCommand ]));
       }
-      return { message: responseMessage, data, nextCommand };
-
+      this.formatResults(data);
       return { message: responseMessage, data };
-    });
 
+      return { message: responseMessage, data, nextCommand };
+    });
+  }
+
+  private formatResults(data) {
+    this.ux.styledObject(data, [ 'name', 'status', 'modelId', 'modelType', 'updatedAt']);
   }
 
 }

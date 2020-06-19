@@ -35,7 +35,7 @@ export default class EAITransport {
                                 throw new SfdxError(res.statusText);
                             } else {
                                 return res.json().then(data => {
-                                    throw new SfdxError(JSON.parse(data.message).message);
+                                    throw new SfdxError(data.message);
                                 });
                             }
                         } else {

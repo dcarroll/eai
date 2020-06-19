@@ -61,6 +61,7 @@ export default class TrainLanguageDataSet extends SfdxCommand {
         await write(nextCommand);
       } else {
         this.ux.log(messages.getMessage('statusCommandPrompt', [ nextCommand ]));
+        this.ux.styledObject(data, [ 'datasetId', 'name', 'status', 'modelType', 'modelId']);
       }
       return { message: responseMessage, data, nextCommand };
     });

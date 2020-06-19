@@ -18,10 +18,10 @@ export default class CreateLanguageDataSet extends SfdxCommand {
   ];
 
   protected static flagsConfig = {
-    data: flags.string({char: 'd', exclusive: ['path'], required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
+    data: flags.string({char: 'd', exclusive: ['path'], required: false, description: 'URL of the .zip file in the local drive. The maximum .zip file size you can upload from a web location is 50 MB.'}),
     language: flags.string({char: 'l', required: false, default: 'N/A', description: 'Dataset language. Optional. Default is N/A. Reserved for future use.' }),
     name: flags.string({char: 'n', required: false, description: 'Name of the dataset. Maximum length is 180 characters.' }),
-    path: flags.string({char: 'p', exclusive: ['data'], required: false, description: 'URL of the .zip file. The maximum .zip file size you can upload from a web location is 50 MB.'}),
+    path: flags.string({char: 'p', exclusive: ['data'], required: false, description: 'URL of the .zip file on the web. The maximum .zip file size you can upload from a web location is 50 MB.'}),
     type: flags.string({char: 't', required: true, description: 'Type of dataset data. Valid values are text-intent and text-sentiment. Available in Einstein Vision API version 2.0 and later.'})
   };
 
