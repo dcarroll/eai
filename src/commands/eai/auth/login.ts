@@ -26,7 +26,7 @@ export default class Login extends SfdxCommand {
     expiration: flags.number({char: 'e', default: 1, description: messages.getMessage('expirationFlagDescription') })
   };
 
-  protected static requiresUsername = false;
+  protected static requiresUsername = true;
   protected static supportsDevhubUsername = false;
   protected static requiresProject = false;
   protected sfEinstein = require('sf-einstein');
